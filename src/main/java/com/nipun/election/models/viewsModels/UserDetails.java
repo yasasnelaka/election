@@ -12,5 +12,6 @@ import lombok.Setter;
 public class UserDetails {
     private int id;
     private String name;
+    private int typeId;
     private String type;
 }

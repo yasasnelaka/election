@@ -16,7 +16,7 @@ public class CitizenController {
     @GetMapping("/citizen-list")
     public String index(Model model){
         model.addAttribute("page_details",new PageDetails("EVS | Citizens","Citizens"));
-        model.addAttribute("user",new UserDetails(1,"John Doe","GN Officer"));
+        model.addAttribute("user",new UserDetails(1,"John Doe",2,"GN Officer"));
         return ViewHolder.CITIZEN_LIST_VIEW;
     }
 }
