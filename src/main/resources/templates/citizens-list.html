@@ -42,7 +42,10 @@
                                 <div class="card-tools">
                                     <ul class="nav nav-pills ml-auto">
                                         <li class="nav-item">
-                                            <button type="button" class="btn btn-primary float-right"><i class="fas fa-user-plus"></i> Add Citizen</button>
+                                            <button type="button" class="btn btn-primary float-right"
+                                                    data-toggle="modal" data-target="#customer-registration-modal"><i
+                                                    class="fas fa-user-plus"></i> Add Citizen
+                                            </button>
                                         </li>
                                     </ul>
                                 </div>
@@ -497,6 +500,129 @@
     <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+<!--Begin::Citizen Registration-->
+
+<div class="modal fade" id="customer-registration-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form action="#">
+                <div class="modal-header">
+                    <h4 class="modal-title">Citizen Registration</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!--                    <div class="form-group">-->
+                    <!--                        <label>Province</label>-->
+                    <!--                        <select class="form-control" id="province" name="province">-->
+                    <!--                            <option selected value="0">Central Province</option>-->
+                    <!--                            <option value="1">Eastern Province</option>-->
+                    <!--                            <option value="2">Northern Province</option>-->
+                    <!--                            <option value="3">Southern Province</option>-->
+                    <!--                            <option value="4">Western Province</option>-->
+                    <!--                            <option value="5">North Western Province</option>-->
+                    <!--                            <option value="6">North Central Province</option>-->
+                    <!--                            <option value="7">Uva Province</option>-->
+                    <!--                            <option value="8">Sabaragamuwa Province</option>-->
+                    <!--                        </select>-->
+                    <!--                    </div>-->
+                    <div class="form-group">
+                        <label for="district">District</label>
+                        <select class="form-control" id="district" name="district">
+                            <option selected value="0">Colombo</option>
+                            <option value="1">Gampaha</option>
+                            <option value="2">Kalutara</option>
+                            <option value="3">Kandy</option>
+                            <option value="4">Matale</option>
+                            <option value="5">Nuwaraeliya</option>
+                            <option value="6">Galle</option>
+                            <option value="7">Matara</option>
+                            <option value="8">Hambantota</option>
+                            <option value="9">Jaffna</option>
+                            <option value="10">Vavuniya</option>
+                            <option value="11">Batticaloa</option>
+                            <option value="12">Ampara</option>
+                            <option value="13">Trincomalee</option>
+                            <option value="14">Kurunegala</option>
+                            <option value="15">Puttalam</option>
+                            <option value="16">Anuradhapura</option>
+                            <option value="17">Polonnaruwa</option>
+                            <option value="18">Badulla</option>
+                            <option value="19">Monaragala</option>
+                            <option value="20">Ratnapura</option>
+                            <option value="21">Kegalle</option>
+                            <option value="22">Kilinochchi</option>
+                            <option value="23">Mullaitivu</option>
+                            <option value="24">Mannar</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pollingDivision">Polling Division</label>
+                        <select class="form-control" id="pollingDivision" name="pollingDivision">
+                            <option selected value="1">A - Colombo North</option>
+                            <option value="2">B - Colombo Central</option>
+                            <option value="3">C - Borella</option>
+                            <option value="4">D - Colombo East</option>
+                            <option value="5">E - Colombo West</option>
+                            <option value="6">F - Dehiwala</option>
+                            <option value="7">G - Ratmalana</option>
+                            <option value="8">H - Kolonnawa</option>
+                            <option value="9">I - Kotte</option>
+                            <option value="10">J - Kaduwela</option>
+                            <option value="11">K - Avissawella</option>
+                            <option value="12">L - Homagama</option>
+                            <option value="13">M - Maharagama</option>
+                            <option value="14">N - Kesbewa</option>
+                            <option value="15">O - Moratuwa</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nic">NIC Number</label>
+                        <input type="text" class="form-control" id="nic" name="nic" placeholder="Enter NIC">
+                    </div>
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" class="form-control" id="fullName" name="fullName"
+                               placeholder="Enter Full Name of the Citizen">
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">gender</label>
+                        <select class="form-control" id="gender" name="gender">
+                            <option selected value="0">Male</option>
+                            <option value="1">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthday">Birthday</label>
+                        <input type="date" class="form-control" id="birthday" name="birthday">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile">Mobile</label>
+                        <input type="tel" class="form-control" id="mobile" name="mobile"
+                               placeholder="Enter mobile number">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <textarea class="form-control" rows="3" name="address" id="address" placeholder="Enter address"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!--End::Citizen Registration-->
 
 <div th:replace="fragments/layout-fragments::scripts"></div>
 <!-- Page specific script -->
