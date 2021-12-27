@@ -1,4 +1,4 @@
-package com.nipun.election.models.viewsModels;
+package com.nipun.election.models.responseModels;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

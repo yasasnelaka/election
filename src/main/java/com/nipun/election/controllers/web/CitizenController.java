@@ -1,14 +1,11 @@
 package com.nipun.election.controllers.web;
 
 import com.nipun.election.init.ViewHolder;
-import com.nipun.election.models.viewsModels.PageDetails;
-import com.nipun.election.models.viewsModels.UserDetails;
+import com.nipun.election.models.responseModels.PageDetails;
+import com.nipun.election.models.responseModels.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 public class CitizenController {
