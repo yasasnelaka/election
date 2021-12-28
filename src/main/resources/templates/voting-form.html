@@ -1,71 +1,142 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Voting Form</title>
+
+    <div th:replace="fragments/layout-fragments::styles"></div>
+
 </head>
-<body>
+<body class="hold-transition">
+<div class="wrapper">
 
-<div class="container">
-    <div style="height: 100px"></div>
-    <div class="row">
-        <div class="col-3">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper p-lg-5" style="margin-left: 0;">
+        <!-- Content Header (Page header) -->
+        <div th:replace="fragments/layout-fragments::page_header(title=${page_details.getHeader()})"></div>
+        <!-- /.content-header -->
 
-        </div>
-        <div class="col-6">
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
 
-            <h2>Voting Form</h2>
-            <form>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Email address</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                        <!-- /.card -->
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-id-card-alt mr-1"></i>
+                                    Voting Form
+                                </h3>
+                                <!--                                <div class="card-tools">-->
+                                <!--                                    <ul class="nav nav-pills ml-auto">-->
+                                <!--                                        <li class="nav-item">-->
+                                <!--                                            <button type="button" class="btn btn-primary float-right"-->
+                                <!--                                                    data-toggle="modal" data-target="#candidate-registration-modal"><i-->
+                                <!--                                                    class="fas fa-user-plus"></i> Add Candidate-->
+                                <!--                                            </button>-->
+                                <!--                                        </li>-->
+                                <!--                                    </ul>-->
+                                <!--                                </div>-->
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Political Party</th>
+                                        <th>Number</th>
+                                        <th>Full Name</th>
+                                        <th>Vote</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th>Sri Lanka Freedom Party(SLFP)</th>
+                                        <th>5</th>
+                                        <td>John Smith</td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox">
+                                                    <!--                                                    <label class="form-check-label">Vote</label>-->
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Sri Lanka Freedom Party(SLFP)</th>
+                                        <th>2</th>
+                                        <td>Sirisena</td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox">
+                                                    <!--                                                    <label class="form-check-label">Vote</label>-->
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Sri Lanka Freedom Party(SLFP)</th>
+                                        <th>10</th>
+                                        <td>Mahinda Rajapaksha</td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox">
+                                                    <!--                                                    <label class="form-check-label">Vote</label>-->
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row m-2">
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-success btn-lg form-control">SAVE</button>
+                                </div>
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-danger btn-lg form-control">CANCEL MY VOTE</button>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
                 </div>
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Election Party</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
-                        <option>Party 1</option>
-                        <option>Party 2</option>
-                        <option>Party 3</option>
-                        <option>Party 4</option>
-                        <option>Party 5</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlSelect2">Candidate</label>
-                    <select multiple class="form-control" id="exampleFormControlSelect2">
-                        <option>Maithipala Sirisena (01)</option>
-                        <option>Mahinda Rajapaksha (02)</option>
-                        <option>Nimal Siripalada Silva (03)</option>
-                        <option>Wimal Weerawansha (04)</option>
-                        <option>Anura Kumara Dissanayaka (05)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-danger">CANCEL VOTE</button>
-                    <button class="btn btn-primary">VOTE</button>
-                </div>
-            </form>
-
-        </div>
-        <div class="col-3">
-
-        </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
     </div>
+
 </div>
+<!-- ./wrapper -->
 
-
-
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<div th:replace="fragments/layout-fragments::scripts"></div>
+<!-- Page specific script -->
+<script>
+    $(function () {
+        // $("#example1").DataTable({
+        //     "responsive": true, "lengthChange": false, "autoWidth": false,
+        //     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        // }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example1').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+</script>
 </body>
 </html>
