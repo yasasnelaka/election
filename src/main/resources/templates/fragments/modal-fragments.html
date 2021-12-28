@@ -261,3 +261,58 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
+
+<div th:fragment="election" class="modal fade" id="election-registration-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form th:action="@{/election-registration-request}" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Election Registration</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <input type="text" hidden name="formType" id="formType" value="0">
+                <input type="text" hidden name="formId" id="formId" value="0">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">Name of the Election</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Name of the Election" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Year</label>
+                        <select class="form-control" id="year" name="year" required>
+                            <option selected value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="maxSeats">Max Seats</label>
+                        <input type="number" class="form-control" id="maxSeats" name="maxSeats" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="startTime">Start Time</label>
+                        <input type="datetime-local" class="form-control" id="startTime" name="startTime" placeholder="Start Time"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endTime">End Time</label>
+                        <input type="datetime-local" class="form-control" id="endTime" name="endTime" placeholder="End Time"
+                               required>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

@@ -7,4 +7,6 @@ public class URLHolder {
     public static String CITIZEN_REGISTRATION_REQUEST = "/citizen-registration-request";
     public static String CANDIDATES_LIST_VIEW = "/candidates-list";
     public static String CANDIDATES_REGISTRATION_REQUEST = "/candidate-registration-request";
+    public static String ELECTIONS_LIST_VIEW = "/elections-list";
+    public static String ELECTION_REGISTRATION_REQUEST = "/election-registration-request";
 }
