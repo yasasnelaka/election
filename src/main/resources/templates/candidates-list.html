@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${page_details.getTitle()}">Dashboard</title>
+
+    <div th:replace="fragments/layout-fragments::styles"></div>
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <div th:replace="fragments/layout-fragments::preloader"></div>
+
+    <!-- Navbar -->
+    <div th:replace="fragments/navbar-fragments::top_navbar"></div>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <div th:replace="fragments/sidebar-fragments::sidebar(user=${user})"></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div th:replace="fragments/layout-fragments::page_header(title=${page_details.getHeader()})"></div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+
+                        <!-- /.card -->
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-id-card-alt mr-1"></i>
+                                    Candidates
+                                </h3>
+                                <div class="card-tools">
+                                    <ul class="nav nav-pills ml-auto">
+                                        <li class="nav-item">
+                                            <button type="button" class="btn btn-primary float-right"
+                                                    data-toggle="modal" data-target="#candidate-registration-modal"><i
+                                                    class="fas fa-user-plus"></i> Add Candidate
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Province</th>
+                                        <th>District</th>
+                                        <th>Polling Division</th>
+                                        <th>Political Party</th>
+                                        <th>NIC</th>
+                                        <th>Full Name</th>
+                                        <th>Gender</th>
+                                        <th>Email</th>
+                                        <th>Mobile</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Western</td>
+                                        <td>Colombo</td>
+                                        <td>A - Colombo North</td>
+                                        <th>Sri Lanka Freedom Party(SLFP)</th>
+                                        <td>945465666v</td>
+                                        <td>John Smith</td>
+                                        <td>Male</td>
+                                        <td>john@gmail.com</td>
+                                        <td>+94771234567</td>
+                                        <td>
+                                            <button type="button" class="btn btn-success"
+                                                    data-toggle="modal" data-target="#candidate-registration-modal"><i
+                                                    class="fas fa-user-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger"><i class="fa fa-trash-alt"></i></button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Province</th>
+                                        <th>District</th>
+                                        <th>Polling Division</th>
+                                        <th>Political Party</th>
+                                        <th>NIC</th>
+                                        <th>Full Name</th>
+                                        <th>Gender</th>
+                                        <th>Email</th>
+                                        <th>Mobile</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <div th:replace="fragments/footer-fragments::footer"></div>
+
+    <!-- Control Sidebar -->
+    <div th:replace="fragments/layout-fragments::theme_settings"></div>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+<!--Begin::Citizen Registration-->
+<div th:replace="fragments/modal-fragments::candidate"></div>
+<!--End::Citizen Registration-->
+
+<div th:replace="fragments/layout-fragments::scripts"></div>
+<!-- Page specific script -->
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        // $('#example2').DataTable({
+        //     "paging": true,
+        //     "lengthChange": false,
+        //     "searching": false,
+        //     "ordering": true,
+        //     "info": true,
+        //     "autoWidth": false,
+        //     "responsive": true,
+        // });
+    });
+</script>
+</body>
+</html>
