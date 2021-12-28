@@ -14,6 +14,7 @@ public class CandidateRegistrationRequest {
     private int formType;
     private int pollingDivision;
     private int electionParty;
+    private int electionNumber;
     private String nic;
     private String fullName;
     private int gender;
