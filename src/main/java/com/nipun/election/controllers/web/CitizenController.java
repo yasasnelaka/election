@@ -25,7 +25,7 @@ public class CitizenController {
         return ViewHolder.CITIZEN_LIST_VIEW;
     }
 
-    @PostMapping(name = "/citizen-registration-request",consumes = MediaType.ALL_VALUE)
+    @PostMapping(path = "/citizen-registration-request",consumes = MediaType.ALL_VALUE)
     public RedirectView citizenRegistration(HttpServletRequest servletRequest, CitizenRegistrationRequest request,Model model){
 //TODO::Implement the business process for citizenRegistration
         return new RedirectView(URLHolder.CITIZEN_LIST_VIEW);
