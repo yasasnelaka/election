@@ -1,3 +1,4 @@
+package com.nipun.election.dbTier.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
