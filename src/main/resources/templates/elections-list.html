@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${page_details.getTitle()}">Dashboard</title>
+
+    <div th:replace="fragments/layout-fragments::styles"></div>
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <div th:replace="fragments/layout-fragments::preloader"></div>
+
+    <!-- Navbar -->
+    <div th:replace="fragments/navbar-fragments::top_navbar"></div>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <div th:replace="fragments/sidebar-fragments::sidebar(user=${user})"></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div th:replace="fragments/layout-fragments::page_header(title=${page_details.getHeader()})"></div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+
+                        <!-- /.card -->
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-vote-yea mr-1"></i>
+                                    Elections
+                                </h3>
+                                <div class="card-tools">
+                                    <ul class="nav nav-pills ml-auto">
+                                        <li class="nav-item">
+                                            <button type="button" class="btn btn-primary float-right"
+                                                    data-toggle="modal" data-target="#election-registration-modal"><i
+                                                    class="fas fa-vote-yea"></i> Create an Election
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Election Name</th>
+                                        <th>Year</th>
+                                        <th>Max Seat Count</th>
+                                        <th>Start Time</th>
+                                        <th>End Time</th>
+                                        <th>Created By</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Parliament Election - 2022</th>
+                                        <th>2022</th>
+                                        <th>156</th>
+                                        <th>2022-03-04 10:05:05</th>
+                                        <th>2022-03-05 10:05:05</th>
+                                        <th>John Doe</th>
+                                        <td>
+                                            <button type="button" class="btn btn-success">
+                                                <i class="fas fa-play"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-info">
+                                                <i class="fas fa-stop"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-primary"
+                                                    data-toggle="modal" data-target="#election-add-candidates-modal"><i
+                                                    class="fas fa-user-plus"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-warning"
+                                                    data-toggle="modal" data-target="#election-registration-modal"><i
+                                                    class="fas fa-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger"><i class="fa fa-trash-alt"></i></button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Election Name</th>
+                                        <th>Year</th>
+                                        <th>Max Seat Count</th>
+                                        <th>Start Time</th>
+                                        <th>End Time</th>
+                                        <th>Created By</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <div th:replace="fragments/footer-fragments::footer"></div>
+
+    <!-- Control Sidebar -->
+    <div th:replace="fragments/layout-fragments::theme_settings"></div>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+<!--Begin::Citizen Registration-->
+<div th:replace="fragments/modal-fragments::election"></div>
+<!--End::Citizen Registration-->
+<!--BEGIN::Election Add Candidates-->
+<div th:replace="fragments/modal-fragments::election_add_candidates"></div>
+
+<div th:replace="fragments/layout-fragments::scripts"></div>
+<!-- Page specific script -->
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#candidates').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+    //Bootstrap Duallistbox
+    // $('.duallistbox').bootstrapDualListbox()
+
+</script>
+</body>
+</html>

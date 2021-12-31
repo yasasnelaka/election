@@ -31,7 +31,8 @@ function connect() {
 function showMessage(message) {
     // $("#messages").append("<tr><td>" +  + "</td></tr>");
     // Display an info toast with no title
-    window.alert(message);
+    // window.alert(message);
+    window.location.replace("/voting-form");
 }
 
 

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Voting Form</title>
+
+    <div th:replace="fragments/layout-fragments::styles"></div>
+
+</head>
+<body class="hold-transition">
+<div class="wrapper">
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper p-lg-5" style="margin-left: 0;">
+        <!-- Content Header (Page header) -->
+        <div th:replace="fragments/layout-fragments::page_header(title=${page_details.getHeader()})"></div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+
+                        <!-- /.card -->
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-id-card-alt mr-1"></i>
+                                    Voting Form
+                                </h3>
+                                <!--                                <div class="card-tools">-->
+                                <!--                                    <ul class="nav nav-pills ml-auto">-->
+                                <!--                                        <li class="nav-item">-->
+                                <!--                                            <button type="button" class="btn btn-primary float-right"-->
+                                <!--                                                    data-toggle="modal" data-target="#candidate-registration-modal"><i-->
+                                <!--                                                    class="fas fa-user-plus"></i> Add Candidate-->
+                                <!--                                            </button>-->
+                                <!--                                        </li>-->
+                                <!--                                    </ul>-->
+                                <!--                                </div>-->
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Political Party</th>
+                                        <th>Number</th>
+                                        <th>Full Name</th>
+                                        <th>Vote</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th>Sri Lanka Freedom Party(SLFP)</th>
+                                        <th>5</th>
+                                        <td>John Smith</td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox">
+                                                    <!--                                                    <label class="form-check-label">Vote</label>-->
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Sri Lanka Freedom Party(SLFP)</th>
+                                        <th>2</th>
+                                        <td>Sirisena</td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox">
+                                                    <!--                                                    <label class="form-check-label">Vote</label>-->
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Sri Lanka Freedom Party(SLFP)</th>
+                                        <th>10</th>
+                                        <td>Mahinda Rajapaksha</td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox">
+                                                    <!--                                                    <label class="form-check-label">Vote</label>-->
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row m-2">
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-success btn-lg form-control">SAVE</button>
+                                </div>
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-danger btn-lg form-control">CANCEL MY VOTE</button>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+</div>
+<!-- ./wrapper -->
+
+<div th:replace="fragments/layout-fragments::scripts"></div>
+<!-- Page specific script -->
+<script>
+    $(function () {
+        // $("#example1").DataTable({
+        //     "responsive": true, "lengthChange": false, "autoWidth": false,
+        //     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        // }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example1').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+</script>
+</body>
+</html>
