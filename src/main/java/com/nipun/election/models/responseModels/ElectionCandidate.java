@@ -1,5 +1,6 @@
 package com.nipun.election.models.responseModels;
 
+import com.nipun.election.init.SeatType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class ElectionCandidate extends Candidate implements Serializable {
     private int votes;
 
     public ElectionCandidate convertEntityToResponseModel(com.nipun.election.dbTier.entities.ElectionCandidate ec, Candidate candidate) {
-        ElectionCandidate c = new ElectionCandidate(ec.getId(), ec.getSeatType(), "", ec.getIsLeader() == 1, ec.getVotes());
+        ElectionCandidate c = new ElectionCandidate(ec.getId(), ec.getSeatType(), SeatType.ALL[ec.getSeatType()], ec.getIsLeader() == 1, ec.getVotes());
         if (candidate != null) {
             c.setId(candidate.getId());
             c.setElectionParty(candidate.getElectionParty());
