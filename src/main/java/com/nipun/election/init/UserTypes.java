@@ -11,7 +11,13 @@ public class UserTypes {
             "GNO"
     };
 
-    public static String[] ALL_TYPES_LONG = new String[]{
+    public static String[] ALL_TYPES_MIDDLE = new String[]{
+            "Admin",
+            "DE Commissioner",
+            "GN Officer"
+    };
+
+    public static String[] ALL_TYPES_FULL = new String[]{
             "Admin",
             "Divisional Election Commissioner",
             "Grama Niladhari Officer"
