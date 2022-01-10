@@ -20,7 +20,7 @@ public class CandidateController {
     @GetMapping("/candidates-list")
     public String index(Model model) {
         model.addAttribute("page_details", new PageDetails("EVS | Candidates", "Candidates"));
-        model.addAttribute("user", new UserDetails(1, "John Doe", 1, "DE Commissioner"));
+        model.addAttribute("user", new UserDetails(1, "John Doe","", 1, "DE Commissioner"));
         return ViewHolder.CANDIDATES_LIST_VIEW;
     }
 

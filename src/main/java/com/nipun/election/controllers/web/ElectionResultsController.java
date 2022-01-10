@@ -13,7 +13,7 @@ public class ElectionResultsController {
     @GetMapping("/election-results")
     public String index(Model model){
         model.addAttribute("page_details",new PageDetails("EVS | Election","Parliament Election - 2022"));
-        model.addAttribute("user",new UserDetails(1,"John Doe",1,"DEC Officer"));
+        model.addAttribute("user",new UserDetails(1,"John Doe","",1,"DEC Officer"));
         return ViewHolder.ELECTION_RESULTS_VIEW;
     }
 }

@@ -21,7 +21,7 @@ public class ElectionController {
     @GetMapping("/elections-list")
     public String index(Model model){
         model.addAttribute("page_details",new PageDetails("EVS | Election","Elections"));
-        model.addAttribute("user",new UserDetails(1,"John Doe",1,"DEC Officer"));
+        model.addAttribute("user",new UserDetails(1,"John Doe","",1,"DEC Officer"));
         return ViewHolder.ELECTIONS_LIST_VIEW;
     }
 
