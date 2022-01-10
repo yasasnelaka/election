@@ -44,8 +44,6 @@ public class LoginController {
         message.setHeader("Alert");
         Date date = new Date();
         //Validating
-//        String pw = passwordEncoder.encode(request.getPassword());
-        String pw = request.getPassword();
         User user = userRepository.getByEmail(request.getEmail(), Status.LIVE);
         if (user == null) {
             message.setMessage("Email or password has not been matched! Please try again with correct credentials.");

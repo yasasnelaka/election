@@ -4,8 +4,7 @@
 //import com.nipun.election.dbTier.entities.User;
 //import com.nipun.election.dbTier.repositories.UserRepository;
 //import com.nipun.election.init.Status;
-//import com.nipun.election.init.UserTypes;
-//import com.nipun.election.models.requestModels.AdminRegistrationRequest;
+//import com.nipun.election.models.requestModels.UserRegistrationRequest;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.http.ResponseEntity;
 //import org.springframework.stereotype.Controller;
@@ -16,22 +15,22 @@
 //
 //@RequestMapping("/api")
 //@Controller
-//public class AdminRegistrationController {
+//public class UserRegistrationController {
 //
 //    private final UserRepository userRepository;
 //    private final Config config;
 //
 //    @Autowired
-//    public AdminRegistrationController(UserRepository userRepository, Config config) {
+//    public UserRegistrationController(UserRepository userRepository, Config config) {
 //        this.userRepository = userRepository;
 //        this.config = config;
 //    }
 //
-//    @RequestMapping(value = "/create-admin", method = RequestMethod.GET)
-//    public ResponseEntity<?> createAdmin(AdminRegistrationRequest request) {
+//    @RequestMapping(value = "/create-user", method = RequestMethod.GET)
+//    public ResponseEntity<?> createUser(UserRegistrationRequest request) {
 //        User user = new User();
 //        Date date = new Date();
-//        user.setUserTypeId(UserTypes.ADMIN);
+//        user.setUserTypeId(request.getUserType());
 //        user.setEmail(request.getEmail());
 //        user.setPassword(config.encoder().encode(request.getPassword()));
 //        user.setFirstName(request.getFirstName());

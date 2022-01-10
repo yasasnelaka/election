@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminRegistrationRequest {
+public class UserRegistrationRequest {
     private String firstName;
     private String lastName;
     private int gender;
@@ -17,10 +17,12 @@ public class AdminRegistrationRequest {
     private String address;
     private String email;
     private String password;
+    private int userType;
 
     @Override
     public String toString() {
         return "AdminRegistrationRequest{" +
+                "userType='" + userType + '\'' +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", gender=" + gender +
