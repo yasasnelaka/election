@@ -68,24 +68,50 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Western</td>
-                                        <td>Colombo</td>
-                                        <td>A - Colombo North</td>
-                                        <td>945465666v</td>
-                                        <td>John Smith</td>
-                                        <td>Male</td>
-                                        <td>john@gmail.com</td>
-                                        <td>+94771234567</td>
+
+                                    <tr th:id="'ct_table_row_'+${c.getId()}"
+                                        th:each="c,iterationStatus:${citizens}">
+                                        <td th:text="${iterationStatus.count}"></td>
+                                        <td th:text="${c.getPollingDivision().getProvinceDivisionName()}"></td>
+                                        <td th:text="${c.getPollingDivision().getDistrictDivisionName()}"></td>
+                                        <td th:text="${c.getPollingDivision().getPollingDivisionName()}"></td>
+                                        <td th:text="${c.getNic()}"></td>
+                                        <td th:text="${c.getFullName()}"></td>
+                                        <td th:text="${c.getGender()}"></td>
+                                        <td th:text="${c.getEmail()}"></td>
+                                        <td th:text="${c.getMobile()}"></td>
                                         <td>
                                             <button type="button" class="btn btn-success"
                                                     data-toggle="modal" data-target="#customer-registration-modal"><i
                                                     class="fas fa-user-edit"></i>
                                             </button>
-                                            <button type="button" class="btn btn-danger"><i class="fa fa-trash-alt"></i></button>
+                                            <form th:action="@{delete-citizen}">
+                                                <input type="number" hidden th:value="${c.getId()}">
+                                                <button type="button" class="btn btn-danger"><i
+                                                        class="fa fa-trash-alt"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
+<!--                                    <tr>-->
+<!--                                        <td>1</td>-->
+<!--                                        <td>Western</td>-->
+<!--                                        <td>Colombo</td>-->
+<!--                                        <td>A - Colombo North</td>-->
+<!--                                        <td>945465666v</td>-->
+<!--                                        <td>John Smith</td>-->
+<!--                                        <td>Male</td>-->
+<!--                                        <td>john@gmail.com</td>-->
+<!--                                        <td>+94771234567</td>-->
+<!--                                        <td>-->
+<!--                                            <button type="button" class="btn btn-success"-->
+<!--                                                    data-toggle="modal" data-target="#customer-registration-modal"><i-->
+<!--                                                    class="fas fa-user-edit"></i>-->
+<!--                                            </button>-->
+<!--                                            <button type="button" class="btn btn-danger"><i class="fa fa-trash-alt"></i>-->
+<!--                                            </button>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
                                     </tbody>
                                     <tfoot>
                                     <tr>
