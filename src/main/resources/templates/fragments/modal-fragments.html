@@ -13,11 +13,11 @@
                     <input type="number" hidden name="formId" id="formId" value="0">
                     <div class="form-group">
                         <label>Province</label>
-                        <select th:each="province,iterationStatus:${provinces}"
+                        <select
                                 onchange="changeDistrict(this.value,'district')" class="form-control" id="province"
                                 name="province">
                             <option disabled selected>--Select--</option>
-                            <option th:value="${province['id']}" th:text="${province['name']}"></option>
+                            <option  th:each="province,iterationStatus:${provinces}" th:value="${province['id']}" th:text="${province['name']}"></option>
                             <!--                            <option selected value="0">Central Province</option>-->
                             <!--                            <option value="1">Eastern Province</option>-->
                             <!--                            <option value="2">Northern Province</option>-->
@@ -144,81 +144,92 @@
                 <input type="text" hidden name="formType" id="formType" value="0">
                 <input type="text" hidden name="formId" id="formId" value="0">
                 <div class="modal-body">
-                    <!--                    <div class="form-group">-->
-                    <!--                        <label>Province</label>-->
-                    <!--                        <select class="form-control" id="province" name="province">-->
-                    <!--                            <option selected value="0">Central Province</option>-->
-                    <!--                            <option value="1">Eastern Province</option>-->
-                    <!--                            <option value="2">Northern Province</option>-->
-                    <!--                            <option value="3">Southern Province</option>-->
-                    <!--                            <option value="4">Western Province</option>-->
-                    <!--                            <option value="5">North Western Province</option>-->
-                    <!--                            <option value="6">North Central Province</option>-->
-                    <!--                            <option value="7">Uva Province</option>-->
-                    <!--                            <option value="8">Sabaragamuwa Province</option>-->
-                    <!--                        </select>-->
-                    <!--                    </div>-->
+                    <div class="form-group">
+                        <label>Province</label>
+                        <select
+                                onchange="changeDistrict(this.value,'district')" class="form-control" id="province"
+                                name="province">
+                            <option disabled selected>--Select--</option>
+                            <option  th:each="province,iterationStatus:${provinces}" th:value="${province['id']}" th:text="${province['name']}"></option>
+                            <!--                            <option selected value="0">Central Province</option>-->
+                            <!--                            <option value="1">Eastern Province</option>-->
+                            <!--                            <option value="2">Northern Province</option>-->
+                            <!--                            <option value="3">Southern Province</option>-->
+                            <!--                            <option value="4">Western Province</option>-->
+                            <!--                            <option value="5">North Western Province</option>-->
+                            <!--                            <option value="6">North Central Province</option>-->
+                            <!--                            <option value="7">Uva Province</option>-->
+                            <!--                            <option value="8">Sabaragamuwa Province</option>-->
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <label for="district">District</label>
-                        <select class="form-control" id="district" name="district" required>
-                            <option selected value="0">Colombo</option>
-                            <option value="1">Gampaha</option>
-                            <option value="2">Kalutara</option>
-                            <option value="3">Kandy</option>
-                            <option value="4">Matale</option>
-                            <option value="5">Nuwaraeliya</option>
-                            <option value="6">Galle</option>
-                            <option value="7">Matara</option>
-                            <option value="8">Hambantota</option>
-                            <option value="9">Jaffna</option>
-                            <option value="10">Vavuniya</option>
-                            <option value="11">Batticaloa</option>
-                            <option value="12">Ampara</option>
-                            <option value="13">Trincomalee</option>
-                            <option value="14">Kurunegala</option>
-                            <option value="15">Puttalam</option>
-                            <option value="16">Anuradhapura</option>
-                            <option value="17">Polonnaruwa</option>
-                            <option value="18">Badulla</option>
-                            <option value="19">Monaragala</option>
-                            <option value="20">Ratnapura</option>
-                            <option value="21">Kegalle</option>
-                            <option value="22">Kilinochchi</option>
-                            <option value="23">Mullaitivu</option>
-                            <option value="24">Mannar</option>
+                        <select class="form-control" id="district" name="district" required
+                                onchange="changePollingDivision(this.value,'pollingDivision')">
+                            <option disabled selected>--Select--</option>
+                            <!--                            <option selected value="0">Colombo</option>-->
+                            <!--                            <option value="1">Gampaha</option>-->
+                            <!--                            <option value="2">Kalutara</option>-->
+                            <!--                            <option value="3">Kandy</option>-->
+                            <!--                            <option value="4">Matale</option>-->
+                            <!--                            <option value="5">Nuwaraeliya</option>-->
+                            <!--                            <option value="6">Galle</option>-->
+                            <!--                            <option value="7">Matara</option>-->
+                            <!--                            <option value="8">Hambantota</option>-->
+                            <!--                            <option value="9">Jaffna</option>-->
+                            <!--                            <option value="10">Vavuniya</option>-->
+                            <!--                            <option value="11">Batticaloa</option>-->
+                            <!--                            <option value="12">Ampara</option>-->
+                            <!--                            <option value="13">Trincomalee</option>-->
+                            <!--                            <option value="14">Kurunegala</option>-->
+                            <!--                            <option value="15">Puttalam</option>-->
+                            <!--                            <option value="16">Anuradhapura</option>-->
+                            <!--                            <option value="17">Polonnaruwa</option>-->
+                            <!--                            <option value="18">Badulla</option>-->
+                            <!--                            <option value="19">Monaragala</option>-->
+                            <!--                            <option value="20">Ratnapura</option>-->
+                            <!--                            <option value="21">Kegalle</option>-->
+                            <!--                            <option value="22">Kilinochchi</option>-->
+                            <!--                            <option value="23">Mullaitivu</option>-->
+                            <!--                            <option value="24">Mannar</option>-->
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="pollingDivision">Polling Division</label>
                         <select class="form-control" id="pollingDivision" name="pollingDivision" required>
-                            <option selected value="1">A - Colombo North</option>
-                            <option value="2">B - Colombo Central</option>
-                            <option value="3">C - Borella</option>
-                            <option value="4">D - Colombo East</option>
-                            <option value="5">E - Colombo West</option>
-                            <option value="6">F - Dehiwala</option>
-                            <option value="7">G - Ratmalana</option>
-                            <option value="8">H - Kolonnawa</option>
-                            <option value="9">I - Kotte</option>
-                            <option value="10">J - Kaduwela</option>
-                            <option value="11">K - Avissawella</option>
-                            <option value="12">L - Homagama</option>
-                            <option value="13">M - Maharagama</option>
-                            <option value="14">N - Kesbewa</option>
-                            <option value="15">O - Moratuwa</option>
+                            <option disabled selected>--Select--</option>
+                            <!--                            <option selected value="1">A - Colombo North</option>-->
+                            <!--                            <option value="2">B - Colombo Central</option>-->
+                            <!--                            <option value="3">C - Borella</option>-->
+                            <!--                            <option value="4">D - Colombo East</option>-->
+                            <!--                            <option value="5">E - Colombo West</option>-->
+                            <!--                            <option value="6">F - Dehiwala</option>-->
+                            <!--                            <option value="7">G - Ratmalana</option>-->
+                            <!--                            <option value="8">H - Kolonnawa</option>-->
+                            <!--                            <option value="9">I - Kotte</option>-->
+                            <!--                            <option value="10">J - Kaduwela</option>-->
+                            <!--                            <option value="11">K - Avissawella</option>-->
+                            <!--                            <option value="12">L - Homagama</option>-->
+                            <!--                            <option value="13">M - Maharagama</option>-->
+                            <!--                            <option value="14">N - Kesbewa</option>-->
+                            <!--                            <option value="15">O - Moratuwa</option>-->
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="pollingDivision">Election Party</label>
-                        <select class="form-control" id="electionParty" name="electionParty" required>
-                            <option selected value="0">Sri Lanka Freedom Party(SLFP)</option>
-                            <option value="1">Samagi Jana Balawegaya (SJB)</option>
-                            <option value="2">United National Party (UNP)</option>
-                            <option value="3">Jathika Jana balawegaya (JJB)</option>
-                            <option value="4">National Congress (NC)</option>
-                            <option value="5">Sri Lanka Podujana Peramuna (SLPP)</option>
+                        <select class="form-control" id="electionParty"
+                                name="electionParty" required>
+                            <option disabled selected>--Select--</option>
+                            <option th:each="party,iterationStatus:${parties}"  th:value="${party['id']}" th:text="${party['name']}"></option>
+                            <!--                            <option selected value="0">Sri Lanka Freedom Party(SLFP)</option>-->
+                            <!--                            <option value="1">Samagi Jana Balawegaya (SJB)</option>-->
+                            <!--                            <option value="2">United National Party (UNP)</option>-->
+                            <!--                            <option value="3">Jathika Jana balawegaya (JJB)</option>-->
+                            <!--                            <option value="4">National Congress (NC)</option>-->
+                            <!--                            <option value="5">Sri Lanka Podujana Peramuna (SLPP)</option>-->
                         </select>
                     </div>
                     <div class="form-group">

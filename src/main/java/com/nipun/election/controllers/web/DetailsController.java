@@ -4,7 +4,6 @@ import com.nipun.election.dbTier.entities.District;
 import com.nipun.election.dbTier.entities.PollingDivision;
 import com.nipun.election.dbTier.repositories.DistrictRepository;
 import com.nipun.election.dbTier.repositories.PollingDivisionRepository;
-import com.nipun.election.dbTier.repositories.ProvinceRepository;
 import com.nipun.election.init.Status;
 import com.nipun.election.models.requestModels.DistrictDivisionRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.HashMap;
