@@ -43,6 +43,8 @@
                                     <ul class="nav nav-pills ml-auto">
                                         <li class="nav-item">
                                             <button type="button" class="btn btn-primary float-right"
+                                                    data-title="Citizen Registration"
+                                                    data-formtype="0"
                                                     data-toggle="modal" data-target="#customer-registration-modal"><i
                                                     class="fas fa-user-plus"></i> Add Citizen
                                             </button>
@@ -82,6 +84,19 @@
                                         <td th:text="${c.getMobile()}"></td>
                                         <td>
                                             <button type="button" class="btn btn-success"
+                                                    data-title="Citizen Edit"
+                                                    th:data-id="${c.getId()}"
+                                                    th:data-province="${c.getPollingDivision().getProvinceDivisionId()}"
+                                                    th:data-district="${c.getPollingDivision().getDistrictDivisionId()}"
+                                                    th:data-division="${c.getPollingDivision().getPollingDivisionId()}"
+                                                    th:data-nic="${c.getNic()}"
+                                                    th:data-name="${c.getFullName()}"
+                                                    th:data-gender="${c.getGenderId()}"
+                                                    th:data-birthday="${c.getBirthday()}"
+                                                    th:data-email="${c.getEmail()}"
+                                                    th:data-mobile="${c.getMobile()}"
+                                                    th:data-address="${c.getAddress()}"
+                                                    data-formtype="1"
                                                     data-toggle="modal" data-target="#customer-registration-modal"><i
                                                     class="fas fa-user-edit"></i>
                                             </button>
@@ -93,25 +108,25 @@
                                             </form>
                                         </td>
                                     </tr>
-<!--                                    <tr>-->
-<!--                                        <td>1</td>-->
-<!--                                        <td>Western</td>-->
-<!--                                        <td>Colombo</td>-->
-<!--                                        <td>A - Colombo North</td>-->
-<!--                                        <td>945465666v</td>-->
-<!--                                        <td>John Smith</td>-->
-<!--                                        <td>Male</td>-->
-<!--                                        <td>john@gmail.com</td>-->
-<!--                                        <td>+94771234567</td>-->
-<!--                                        <td>-->
-<!--                                            <button type="button" class="btn btn-success"-->
-<!--                                                    data-toggle="modal" data-target="#customer-registration-modal"><i-->
-<!--                                                    class="fas fa-user-edit"></i>-->
-<!--                                            </button>-->
-<!--                                            <button type="button" class="btn btn-danger"><i class="fa fa-trash-alt"></i>-->
-<!--                                            </button>-->
-<!--                                        </td>-->
-<!--                                    </tr>-->
+                                    <!--                                    <tr>-->
+                                    <!--                                        <td>1</td>-->
+                                    <!--                                        <td>Western</td>-->
+                                    <!--                                        <td>Colombo</td>-->
+                                    <!--                                        <td>A - Colombo North</td>-->
+                                    <!--                                        <td>945465666v</td>-->
+                                    <!--                                        <td>John Smith</td>-->
+                                    <!--                                        <td>Male</td>-->
+                                    <!--                                        <td>john@gmail.com</td>-->
+                                    <!--                                        <td>+94771234567</td>-->
+                                    <!--                                        <td>-->
+                                    <!--                                            <button type="button" class="btn btn-success"-->
+                                    <!--                                                    data-toggle="modal" data-target="#customer-registration-modal"><i-->
+                                    <!--                                                    class="fas fa-user-edit"></i>-->
+                                    <!--                                            </button>-->
+                                    <!--                                            <button type="button" class="btn btn-danger"><i class="fa fa-trash-alt"></i>-->
+                                    <!--                                            </button>-->
+                                    <!--                                        </td>-->
+                                    <!--                                    </tr>-->
                                     </tbody>
                                     <tfoot>
                                     <tr>
@@ -168,6 +183,59 @@
         //     "autoWidth": false,
         //     "responsive": true,
         // });
+    });
+</script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    let isAlertSet = /*[[${alert !=null }]]*/ false;
+
+    if (isAlertSet) {
+        var isShowAlert = /*[[${alert?.show}]]*/ 'default';
+        var title = /*[[${alert?.header}]]*/ 'default';
+        var message = /*[[${alert?.message}]]*/ 'default';
+        var type = /*[[${alert?.type}]]*/ 'default';
+        if (isShowAlert) {
+            showAlert(type, title, message);
+        }
+    }
+
+    /*]]>*/
+</script>
+
+<script>
+    $('#customer-registration-modal').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget);
+        let modalTitle = button.data('title');
+        let formType = button.data('formtype');
+        let id = button.data('id');
+        let provinceId = button.data('province');
+        let districtId = button.data('district');
+        let divisionId = button.data('division');
+        let nic = button.data('nic');
+        let fullName = button.data('name');
+        let gender = button.data('gender');
+        let birthday = button.data('birthday');
+        let email = button.data('email');
+        let mobile = button.data('mobile');
+        let address = button.data('address');
+        // let userTypeId = button.data('usertypeid');
+        let modal = $(this);
+        modal.find('.modal-title').text(modalTitle);
+        modal.find('#formId').val(id);
+        modal.find('#formType').val(formType);
+        // document.getElementById("formId").value = id;
+        // document.getElementById("formType").value = formType;
+        // modal.find('#province').val(provinceId);
+        modal.find('#district').val(districtId);
+        modal.find('#pollingDivision').val(divisionId);
+        modal.find('#nic').val(nic);
+        modal.find('#fullName').val(fullName);
+        modal.find('#gender').val(gender);
+        modal.find('#birthday').val(birthday);
+        modal.find('#email').val(email);
+        modal.find('#mobile').val(mobile);
+        modal.find('#address').val(address);
     });
 </script>
 </body>

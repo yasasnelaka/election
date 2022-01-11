@@ -73,33 +73,32 @@ public class CitizenController {
 
     @PostMapping(path = "/citizen-registration-request", consumes = MediaType.ALL_VALUE)
     public RedirectView citizenRegistration(HttpServletRequest servletRequest, CitizenRegistrationRequest request, RedirectAttributes redirectAttributes) throws ParseException {
+        Date date = new Date();
         AlertMessage message = new AlertMessage();
         message.setHeader("Message");
         message.setShow(true);
         message.setType(FrontEndAlertType.SUCCESS);
-        if (request.getFormType()== FormTypes.SAVE){
-            System.out.println("============================");
-            System.out.println(request.toString());
-            System.out.println("============================");
-            Citizen citizen = new Citizen();
-            Date date = new Date();
-            citizen.setPollingDivisionId(request.getPollingDivision());
-            citizen.setNic(request.getNic());
-            citizen.setFullName(request.getFullName());
-            citizen.setGender(request.getGender());
-            citizen.setBirthday(new SimpleDateFormat("yyyy-MM-dd").parse(request.getBirthday()));
-            citizen.setEmail(request.getEmail());
-            citizen.setMobile(request.getMobile());
-            citizen.setAddress(request.getAddress());
+        Citizen citizen = null;
+        if (request.getFormType() == FormTypes.SAVE) {
+            citizen = new Citizen();
             citizen.setCreatedAt(date);
-            citizen.setUpdatedAt(date);
-            citizen.setStatus(Status.LIVE);
-            this.citizenRepository.saveAndFlush(citizen);
             message.setMessage("Citizen has been saved successfully.");
-            redirectAttributes.addFlashAttribute(ModelAttributes.ALERT,message);
-        }else{
-
+        } else {
+            citizen = citizenRepository.getById(request.getFormId());
+            message.setMessage("Edited citizen details have been saved successfully.");
         }
+        citizen.setPollingDivisionId(request.getPollingDivision());
+        citizen.setNic(request.getNic());
+        citizen.setFullName(request.getFullName());
+        citizen.setGender(request.getGender());
+        citizen.setBirthday(new SimpleDateFormat("yyyy-MM-dd").parse(request.getBirthday()));
+        citizen.setEmail(request.getEmail());
+        citizen.setMobile(request.getMobile());
+        citizen.setAddress(request.getAddress());
+        citizen.setUpdatedAt(date);
+        citizen.setStatus(Status.LIVE);
+        this.citizenRepository.saveAndFlush(citizen);
+        redirectAttributes.addFlashAttribute(ModelAttributes.ALERT, message);
         return new RedirectView(URLHolder.CITIZEN_LIST_VIEW);
     }
 }
