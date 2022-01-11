@@ -8,12 +8,10 @@ import com.nipun.election.dbTier.repositories.CitizenRepository;
 import com.nipun.election.dbTier.repositories.DistrictRepository;
 import com.nipun.election.dbTier.repositories.PollingDivisionRepository;
 import com.nipun.election.dbTier.repositories.ProvinceRepository;
-import com.nipun.election.init.ModelAttributes;
-import com.nipun.election.init.Status;
-import com.nipun.election.init.URLHolder;
-import com.nipun.election.init.ViewHolder;
+import com.nipun.election.init.*;
 import com.nipun.election.models.requestModels.CitizenRegistrationRequest;
 import com.nipun.election.models.requestModels.LoginRequest;
+import com.nipun.election.models.responseModels.AlertMessage;
 import com.nipun.election.models.responseModels.PageDetails;
 import com.nipun.election.models.responseModels.UserDetails;
 import com.nipun.election.services.SessionConfigService;
@@ -22,11 +20,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -70,8 +72,34 @@ public class CitizenController {
     }
 
     @PostMapping(path = "/citizen-registration-request", consumes = MediaType.ALL_VALUE)
-    public RedirectView citizenRegistration(HttpServletRequest servletRequest, CitizenRegistrationRequest request, Model model) {
-//TODO::Implement the business process for citizenRegistration
+    public RedirectView citizenRegistration(HttpServletRequest servletRequest, CitizenRegistrationRequest request, RedirectAttributes redirectAttributes) throws ParseException {
+        AlertMessage message = new AlertMessage();
+        message.setHeader("Message");
+        message.setShow(true);
+        message.setType(FrontEndAlertType.SUCCESS);
+        if (request.getFormType()== FormTypes.SAVE){
+            System.out.println("============================");
+            System.out.println(request.toString());
+            System.out.println("============================");
+            Citizen citizen = new Citizen();
+            Date date = new Date();
+            citizen.setPollingDivisionId(request.getPollingDivision());
+            citizen.setNic(request.getNic());
+            citizen.setFullName(request.getFullName());
+            citizen.setGender(request.getGender());
+            citizen.setBirthday(new SimpleDateFormat("yyyy-MM-dd").parse(request.getBirthday()));
+            citizen.setEmail(request.getEmail());
+            citizen.setMobile(request.getMobile());
+            citizen.setAddress(request.getAddress());
+            citizen.setCreatedAt(date);
+            citizen.setUpdatedAt(date);
+            citizen.setStatus(Status.LIVE);
+            this.citizenRepository.saveAndFlush(citizen);
+            message.setMessage("Citizen has been saved successfully.");
+            redirectAttributes.addFlashAttribute(ModelAttributes.ALERT,message);
+        }else{
+
+        }
         return new RedirectView(URLHolder.CITIZEN_LIST_VIEW);
     }
 }

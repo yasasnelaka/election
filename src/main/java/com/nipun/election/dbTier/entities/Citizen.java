@@ -30,10 +30,10 @@ public class Citizen {
     private String fullName;
 
     @Column(name = "gender")
-    private java.lang.Byte gender;
+    private int gender;
 
     @Column(name = "birthday")
-    private java.sql.Date birthday;
+    private Date birthday;
 
     @Column(name = "email")
     private String email;
