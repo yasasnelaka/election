@@ -9,6 +9,7 @@ import com.nipun.election.dbTier.repositories.DistrictRepository;
 import com.nipun.election.dbTier.repositories.PollingDivisionRepository;
 import com.nipun.election.dbTier.repositories.ProvinceRepository;
 import com.nipun.election.init.*;
+import com.nipun.election.models.requestModels.CitizenDeleteRequest;
 import com.nipun.election.models.requestModels.CitizenRegistrationRequest;
 import com.nipun.election.models.requestModels.LoginRequest;
 import com.nipun.election.models.responseModels.AlertMessage;
@@ -73,6 +74,9 @@ public class CitizenController {
 
     @PostMapping(path = "/citizen-registration-request", consumes = MediaType.ALL_VALUE)
     public RedirectView citizenRegistration(HttpServletRequest servletRequest, CitizenRegistrationRequest request, RedirectAttributes redirectAttributes) throws ParseException {
+        if (!this.sessionConfigService.isUserValid(servletRequest.getSession())) {
+            return new RedirectView(URLHolder.LOGIN_VIEW);
+        }
         Date date = new Date();
         AlertMessage message = new AlertMessage();
         message.setHeader("Message");
@@ -101,4 +105,30 @@ public class CitizenController {
         redirectAttributes.addFlashAttribute(ModelAttributes.ALERT, message);
         return new RedirectView(URLHolder.CITIZEN_LIST_VIEW);
     }
+
+    @PostMapping(path = "/citizen-delete", consumes = MediaType.ALL_VALUE)
+    public RedirectView deleteBankUser(HttpServletRequest servletRequest, CitizenDeleteRequest request, RedirectAttributes redirectAttributes) {
+        if (!this.sessionConfigService.isUserValid(servletRequest.getSession())) {
+            return new RedirectView(URLHolder.LOGIN_VIEW);
+        }
+        Date date = new Date();
+        AlertMessage message = new AlertMessage();
+        message.setHeader("Message");
+        message.setShow(true);
+        Citizen citizen = citizenRepository.getById(request.getId());
+        if (citizen != null) {
+            citizen.setUpdatedAt(date);
+            citizen.setStatus(Status.DELETE);
+            citizenRepository.saveAndFlush(citizen);
+            message.setType(FrontEndAlertType.SUCCESS);
+            message.setMessage("Citizen Deletion has successful!");
+        } else {
+            message.setType(FrontEndAlertType.ERROR);
+            message.setMessage("Something went wrong! Please try again.");
+        }
+        redirectAttributes.addFlashAttribute(ModelAttributes.ALERT,message);
+        return new RedirectView(URLHolder.CITIZEN_LIST_VIEW);
+    }
+
+
 }

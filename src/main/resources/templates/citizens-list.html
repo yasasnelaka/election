@@ -100,9 +100,9 @@
                                                     data-toggle="modal" data-target="#customer-registration-modal"><i
                                                     class="fas fa-user-edit"></i>
                                             </button>
-                                            <form th:action="@{delete-citizen}">
-                                                <input type="number" hidden th:value="${c.getId()}">
-                                                <button type="button" class="btn btn-danger"><i
+                                            <form th:action="@{/citizen-delete}" method="post">
+                                                <input type="number" name="id" hidden th:value="${c.getId()}">
+                                                <button type="submit" class="btn btn-danger"><i
                                                         class="fa fa-trash-alt"></i>
                                                 </button>
                                             </form>
