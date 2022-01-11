@@ -28,9 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class CitizenController {
@@ -59,6 +57,19 @@ public class CitizenController {
             model.addAttribute("page_details", new PageDetails("EVS | Citizens", "Citizens"));
             model.addAttribute("user", userDetails);
         }
+
+        //BEGIN::Extracting Provinces
+        List<Province> ps = this.provinceRepository.findAll();
+        List<Map<String, String>> provinces = new ArrayList<>();
+        for (Province province : ps) {
+            Map<String, String> mm = new HashMap<>();
+            mm.put("id", province.getId() + "");
+            mm.put("name", province.getProvince());
+            provinces.add(mm);
+        }
+        model.addAttribute(ModelAttributes.PROVINCES, provinces);
+        //END::Extracting Provinces
+
         List<Citizen> citizensFromDb = citizenRepository.findAll(Status.LIVE);
         List<com.nipun.election.models.responseModels.Citizen> citizens = new ArrayList<>();
         for (Citizen citizen : citizensFromDb) {
@@ -126,7 +137,7 @@ public class CitizenController {
             message.setType(FrontEndAlertType.ERROR);
             message.setMessage("Something went wrong! Please try again.");
         }
-        redirectAttributes.addFlashAttribute(ModelAttributes.ALERT,message);
+        redirectAttributes.addFlashAttribute(ModelAttributes.ALERT, message);
         return new RedirectView(URLHolder.CITIZEN_LIST_VIEW);
     }
 
