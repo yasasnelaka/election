@@ -43,6 +43,9 @@
                                     <ul class="nav nav-pills ml-auto">
                                         <li class="nav-item">
                                             <button type="button" class="btn btn-primary float-right"
+                                                    data-title="Election Registration"
+                                                    data-formtype="0"
+                                                    data-id="0"
                                                     data-toggle="modal" data-target="#election-registration-modal"><i
                                                     class="fas fa-vote-yea"></i> Create an Election
                                             </button>
@@ -61,35 +64,57 @@
                                         <th>Max Seat Count</th>
                                         <th>Start Time</th>
                                         <th>End Time</th>
-                                        <th>Created By</th>
+                                        <!--                                        <th>Created By</th>-->
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Parliament Election - 2022</th>
-                                        <th>2022</th>
-                                        <th>156</th>
-                                        <th>2022-03-04 10:05:05</th>
-                                        <th>2022-03-05 10:05:05</th>
-                                        <th>John Doe</th>
-                                        <td>
-                                            <button type="button" class="btn btn-success">
-                                                <i class="fas fa-play"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-info">
-                                                <i class="fas fa-stop"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-primary"
-                                                    data-toggle="modal" data-target="#election-add-candidates-modal"><i
-                                                    class="fas fa-user-plus"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-warning"
-                                                    data-toggle="modal" data-target="#election-registration-modal"><i
-                                                    class="fas fa-edit"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-danger"><i class="fa fa-trash-alt"></i></button>
+                                    <tr th:id="'el_table_row_'+${e.getId()}"
+                                        th:each="e,iterationStatus:${elections}">
+                                        <td th:text="${iterationStatus.count}"></td>
+                                        <td th:text="${e.getName()}"></td>
+                                        <td th:text="${e.getYear()}"></td>
+                                        <td th:text="${e.getMaxSeats()}"></td>
+                                        <td th:text="${e.getStartTimeToDisplay()}"></td>
+                                        <td th:text="${e.getEndTimeToDisplay()}"></td>
+                                        <td style="float: left;position: relative">
+                                            <span style="float: left">
+                                                <form action="#">
+                                                    <button type="button" class="btn btn-success">
+                                                        <i class="fas fa-play"></i>
+                                                    </button>
+                                                </form>
+                                            </span>
+                                            <span style="float: left">
+                                                <form action="#">
+                                                    <button type="button" class="btn btn-info">
+                                                        <i class="fas fa-stop"></i>
+                                                    </button>
+                                                </form>
+                                            </span>
+                                            <span style="float: left">
+                                                <button type="button" class="btn btn-primary"
+                                                        data-title="Election Edit"
+                                                        data-formtype="1"
+                                                        data-toggle="modal"
+                                                        data-target="#election-add-candidates-modal">
+                                                    <i class="fas fa-user-plus"></i>
+                                                </button>
+                                            </span>
+                                            <span style="float: left">
+                                                <button type="button" class="btn btn-warning"
+                                                        data-toggle="modal"
+                                                        data-target="#election-registration-modal"><i
+                                                        class="fas fa-edit"></i>
+                                                </button>
+                                            </span>
+                                            <span style="float: left">
+                                                <form action="#">
+                                                    <button type="button" class="btn btn-danger"><i
+                                                            class="fa fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
+                                            </span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -101,7 +126,7 @@
                                         <th>Max Seat Count</th>
                                         <th>Start Time</th>
                                         <th>End Time</th>
-                                        <th>Created By</th>
+                                        <!--                                        <th>Created By</th>-->
                                         <th>Actions</th>
                                     </tr>
                                     </tfoot>

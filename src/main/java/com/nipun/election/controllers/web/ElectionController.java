@@ -59,7 +59,7 @@ public class ElectionController {
             com.nipun.election.models.responseModels.Election election = new com.nipun.election.models.responseModels.Election(e.getId(), e.getName(), e.getYear(), e.getMaxSeats(), e.getStartTime(), startedBy, e.getStartedTime(), e.getEndTime(), endedBy, e.getEndedTime(), e.getVotes(), e.getVotesValid(), e.getVotesInvalid());
             elections.add(election);
         }
-        model.addAttribute(ModelAttributes.ELECTIONS);
+        model.addAttribute(ModelAttributes.ELECTIONS,elections);
         return ViewHolder.ELECTIONS_LIST_VIEW;
     }
 
