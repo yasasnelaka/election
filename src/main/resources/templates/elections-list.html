@@ -94,8 +94,6 @@
                                             </span>
                                             <span style="float: left">
                                                 <button type="button" class="btn btn-primary"
-                                                        data-title="Election Edit"
-                                                        data-formtype="1"
                                                         data-toggle="modal"
                                                         data-target="#election-add-candidates-modal">
                                                     <i class="fas fa-user-plus"></i>
@@ -103,6 +101,14 @@
                                             </span>
                                             <span style="float: left">
                                                 <button type="button" class="btn btn-warning"
+                                                        data-title="Election Edit"
+                                                        data-formtype="1"
+                                                        th:data-id="${e.getId()}"
+                                                        th:data-name="${e.getName()}"
+                                                        th:data-year="${e.getYear()}"
+                                                        th:data-seats="${e.getMaxSeats()}"
+                                                        th:data-starttime="${e.getStartTimeToDisplay()}"
+                                                        th:data-endtime="${e.getEndTimeToDisplay()}"
                                                         data-toggle="modal"
                                                         data-target="#election-registration-modal"><i
                                                         class="fas fa-edit"></i>
@@ -195,6 +201,35 @@
     }
 
     /*]]>*/
+</script>
+
+<script>
+    $('#election-registration-modal').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget);
+        let modalTitle = button.data('title');
+        let formType = button.data('formtype');
+        let id = button.data('id');
+        let name = button.data('name');
+        let year = button.data('year');
+        let seats = button.data('seats');
+        let startTime = button.data('starttime');
+        let endTime = button.data('endtime');
+        let modal = $(this);
+        modal.find('.modal-title').text(modalTitle);
+        modal.find('#formId').val(id);
+        modal.find('#formType').val(formType);
+        modal.find('#name').val(name);
+        modal.find('#year').val(year);
+        modal.find('#maxSeats').val(seats);
+
+        let st = new Date(startTime);
+        st.setMinutes(st.getMinutes() - st.getTimezoneOffset());
+        let et = new Date(endTime);
+        et.setMinutes(et.getMinutes() - et.getTimezoneOffset());
+
+        modal.find('#startTime').val(st.toISOString().slice(0,16));
+        modal.find('#endTime').val(et.toISOString().slice(0,16));
+    });
 </script>
 </body>
 </html>
