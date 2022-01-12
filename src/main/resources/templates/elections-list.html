@@ -77,55 +77,66 @@
                                         <td th:text="${e.getMaxSeats()}"></td>
                                         <td th:text="${e.getStartTimeToDisplay()}"></td>
                                         <td th:text="${e.getEndTimeToDisplay()}"></td>
-                                        <td style="float: left;position: relative">
-                                            <span style="float: left">
-                                                <form th:action="@{/election-change-status}" method="post">
-                                                    <input type="number" name="id" hidden th:value="${e.getId()}">
-                                                    <input type="number" name="status" hidden value="1">
-                                                        <button type="submit" class="btn btn-success">
-                                                            <i class="fas fa-play"></i>
-                                                        </button>
-                                                </form>
-                                            </span>
-                                            <span style="float: left">
-                                                <form th:action="@{/election-change-status}" method="post">
-                                                    <input type="number" name="id" hidden th:value="${e.getId()}">
-                                                    <input type="number" name="status" hidden value="2">
-                                                        <button type="submit" class="btn btn-info">
-                                                            <i class="fas fa-stop"></i>
-                                                        </button>
-                                                </form>
-                                            </span>
-                                            <span style="float: left">
-                                                <button type="button" class="btn btn-primary"
-                                                        th:data-electionid="${e.getId()}"
-                                                        data-toggle="modal"
-                                                        data-target="#election-add-candidates-modal">
-                                                    <i class="fas fa-user-plus"></i>
-                                                </button>
-                                            </span>
-                                            <span style="float: left">
-                                                <button type="button" class="btn btn-warning"
-                                                        data-title="Election Edit"
-                                                        data-formtype="1"
-                                                        th:data-id="${e.getId()}"
-                                                        th:data-name="${e.getName()}"
-                                                        th:data-year="${e.getYear()}"
-                                                        th:data-seats="${e.getMaxSeats()}"
-                                                        th:data-starttime="${e.getStartTimeToDisplay()}"
-                                                        th:data-endtime="${e.getEndTimeToDisplay()}"
-                                                        data-toggle="modal"
-                                                        data-target="#election-registration-modal"><i
-                                                        class="fas fa-edit"></i>
-                                                </button>
-                                            </span>
-                                            <span style="float: left">
-                                            <form th:action="@{/election-delete}" method="post">
-                                                <input type="number" name="id" hidden th:value="${e.getId()}">
-                                                    <button type="submit" class="btn btn-danger"><i
-                                                            class="fa fa-trash-alt"></i>
+                                        <td th:switch="${e.getElectionStatus()}" style="float: left;position: relative">
+                                                <span th:case="'0'">
+                                                        <span style="float: left">
+                                                    <form th:action="@{/election-change-status}" method="post">
+                                                        <input type="number" name="id" hidden th:value="${e.getId()}">
+                                                        <input type="number" name="status" hidden value="1">
+                                                            <button type="submit" class="btn btn-success">
+                                                                <i class="fas fa-play"></i>
+                                                            </button>
+                                                    </form>
+                                                </span>
+                                                <span style="float: left">
+                                                    <button type="button" class="btn btn-primary"
+                                                            th:data-electionid="${e.getId()}"
+                                                            data-toggle="modal"
+                                                            data-target="#election-add-candidates-modal">
+                                                        <i class="fas fa-user-plus"></i>
                                                     </button>
-                                                </form>
+                                                </span>
+                                                <span style="float: left">
+                                                    <button type="button" class="btn btn-warning"
+                                                            data-title="Election Edit"
+                                                            data-formtype="1"
+                                                            th:data-id="${e.getId()}"
+                                                            th:data-name="${e.getName()}"
+                                                            th:data-year="${e.getYear()}"
+                                                            th:data-seats="${e.getMaxSeats()}"
+                                                            th:data-starttime="${e.getStartTimeToDisplay()}"
+                                                            th:data-endtime="${e.getEndTimeToDisplay()}"
+                                                            data-toggle="modal"
+                                                            data-target="#election-registration-modal"><i
+                                                            class="fas fa-edit"></i>
+                                                    </button>
+                                                </span>
+                                                <span style="float: left">
+                                                <form th:action="@{/election-delete}" method="post">
+                                                    <input type="number" name="id" hidden th:value="${e.getId()}">
+                                                        <button type="submit" class="btn btn-danger"><i
+                                                                class="fa fa-trash-alt"></i>
+                                                        </button>
+                                                    </form>
+                                                </span>
+                                                </span>
+                                            <span th:case="'1'">
+                                                <span style="float: left">
+                                                    <form th:action="@{/election-change-status}" method="post">
+                                                        <input type="number" name="id" hidden th:value="${e.getId()}">
+                                                        <input type="number" name="status" hidden value="2">
+                                                            <button type="submit" class="btn btn-info">
+                                                                <i class="fas fa-stop"></i>
+                                                            </button>
+                                                    </form>
+                                                </span>
+                                            </span>
+                                            <span th:case="*">
+                                                <span style="float: left">
+                                                    <a th:href="@{election-results(id=${e.getId()})}" type="button" class="btn btn-outline-primary">
+                                                        <i class="fas fa-chart-bar"></i>
+                                                    </a>
+                                                </span>
                                             </span>
                                         </td>
                                     </tr>

@@ -163,7 +163,7 @@ public class ElectionController {
         Election election = this.electionRepository.getById(request.getId());
         if (election != null) {
             election.setUpdatedAt(date);
-            election.setStatus(request.getStatus());
+            election.setElectionStatus(request.getStatus());
             this.electionRepository.saveAndFlush(election);
             message.setType(FrontEndAlertType.SUCCESS);
             if (request.getStatus() == ElectionStatus.IN_PROGRESS) {
