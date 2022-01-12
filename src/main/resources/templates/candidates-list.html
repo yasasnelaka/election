@@ -43,6 +43,9 @@
                                     <ul class="nav nav-pills ml-auto">
                                         <li class="nav-item">
                                             <button type="button" class="btn btn-primary float-right"
+                                                    data-title="Candidate Registration"
+                                                    data-formtype="0"
+                                                    data-id="0"
                                                     data-toggle="modal" data-target="#candidate-registration-modal"><i
                                                     class="fas fa-user-plus"></i> Add Candidate
                                             </button>
@@ -86,8 +89,23 @@
                                         <td th:text="${c.getMobile()}"></td>
                                         <td>
                                             <button type="button" class="btn btn-success"
-                                                    data-toggle="modal" data-target="#candidate-registration-modal"><i
-                                                    class="fas fa-user-edit"></i>
+                                                    data-title="Candidate Edit"
+                                                    th:data-id="${c.getId()}"
+                                                    th:data-province="${c.getPollingDivision().getProvinceDivisionId()}"
+                                                    th:data-district="${c.getPollingDivision().getDistrictDivisionId()}"
+                                                    th:data-division="${c.getPollingDivision().getPollingDivisionId()}"
+                                                    th:data-electionparty="${c.getElectionParty().getId()}"
+                                                    th:data-electionnumber="${c.getElectionNumber()}"
+                                                    th:data-nic="${c.getNic()}"
+                                                    th:data-name="${c.getFullName()}"
+                                                    th:data-gender="${c.getGenderId()}"
+                                                    th:data-birthday="${c.getBirthday()}"
+                                                    th:data-email="${c.getEmail()}"
+                                                    th:data-mobile="${c.getMobile()}"
+                                                    th:data-address="${c.getAddress()}"
+                                                    data-formtype="1"
+                                                    data-toggle="modal" data-target="#candidate-registration-modal">
+                                                <i class="fas fa-user-edit"></i>
                                             </button>
                                             <form th:action="@{/candidate-delete}" method="post">
                                                 <input type="number" name="id" hidden th:value="${c.getId()}">
@@ -172,6 +190,44 @@
     }
 
     /*]]>*/
+</script>
+
+<script>
+    $('#candidate-registration-modal').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget);
+        let modalTitle = button.data('title');
+        let formType = button.data('formtype');
+        let id = button.data('id');
+        let provinceId = button.data('province');
+        let districtId = button.data('district');
+        let divisionId = button.data('division');
+        let electionPartyId = button.data('electionparty');
+        let electionNumber = button.data('electionnumber');
+        let nic = button.data('nic');
+        let fullName = button.data('name');
+        let gender = button.data('gender');
+        let birthday = button.data('birthday');
+        let email = button.data('email');
+        let mobile = button.data('mobile');
+        let address = button.data('address');
+        // let userTypeId = button.data('usertypeid');
+        let modal = $(this);
+        modal.find('.modal-title').text(modalTitle);
+        modal.find('#formId').val(id);
+        modal.find('#formType').val(formType);
+        // modal.find('#province').val(provinceId);
+        modal.find('#district').val(districtId);
+        modal.find('#pollingDivision').val(divisionId);
+        modal.find('#electionParty').val(electionPartyId);
+        modal.find('#electionNumber').val(electionNumber);
+        modal.find('#nic').val(nic);
+        modal.find('#fullName').val(fullName);
+        modal.find('#gender').val(gender);
+        modal.find('#birthday').val(birthday);
+        modal.find('#email').val(email);
+        modal.find('#mobile').val(mobile);
+        modal.find('#address').val(address);
+    });
 </script>
 </body>
 </html>
