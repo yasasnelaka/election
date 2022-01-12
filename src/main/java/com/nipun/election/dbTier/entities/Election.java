@@ -53,6 +53,9 @@ public class Election {
     @Column(name = "votes")
     private Integer votes;
 
+    @Column(name = "election_status")
+    private Integer electionStatus;
+
     @Column(name = "votes_valid")
     private Integer votesValid;
 

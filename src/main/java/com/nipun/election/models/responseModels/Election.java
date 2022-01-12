@@ -27,9 +27,10 @@ public class Election implements Serializable {
     private int votes;
     private int votesValid;
     private int votesInvalid;
+    private int electionStatus;
 
     public Election convertEntityToResponseModel(com.nipun.election.dbTier.entities.Election e, User startedBy, User endedBy) {
-        return new Election(e.getId(), e.getName(), e.getYear(), e.getMaxSeats(), e.getStartTime(), startedBy, e.getStartedTime(), e.getEndTime(), endedBy, e.getEndedTime(), e.getVotes(), e.getVotesValid(), e.getVotesInvalid());
+        return new Election(e.getId(), e.getName(), e.getYear(), e.getMaxSeats(), e.getStartTime(), startedBy, e.getStartedTime(), e.getEndTime(), endedBy, e.getEndedTime(), e.getVotes(), e.getVotesValid(), e.getVotesInvalid(),e.getElectionStatus());
     }
 
     public String getStartedTimeToDisplay() {

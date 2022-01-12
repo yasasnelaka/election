@@ -56,7 +56,7 @@ public class ElectionController {
         for (Election e : electionList) {
             User startedBy = null;
             User endedBy = null;
-            com.nipun.election.models.responseModels.Election election = new com.nipun.election.models.responseModels.Election(e.getId(), e.getName(), e.getYear(), e.getMaxSeats(), e.getStartTime(), startedBy, e.getStartedTime(), e.getEndTime(), endedBy, e.getEndedTime(), e.getVotes(), e.getVotesValid(), e.getVotesInvalid());
+            com.nipun.election.models.responseModels.Election election = new com.nipun.election.models.responseModels.Election(e.getId(), e.getName(), e.getYear(), e.getMaxSeats(), e.getStartTime(), startedBy, e.getStartedTime(), e.getEndTime(), endedBy, e.getEndedTime(), e.getVotes(), e.getVotesValid(), e.getVotesInvalid(),e.getElectionStatus());
             elections.add(election);
         }
         model.addAttribute(ModelAttributes.ELECTIONS,elections);
@@ -87,6 +87,7 @@ public class ElectionController {
             election = this.electionRepository.getById(request.getFormId());
             message.setMessage("Edited election details have been saved successfully.");
         }
+        election.setElectionStatus(ElectionStatus.START);
         election.setName(request.getName());
         election.setYear(request.getYear());
         election.setMaxSeats(request.getMaxSeats());
