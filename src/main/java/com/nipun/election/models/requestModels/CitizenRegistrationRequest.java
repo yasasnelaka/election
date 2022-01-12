@@ -20,6 +20,7 @@ public class CitizenRegistrationRequest {
     private String email;
     private String mobile;
     private String address;
+    private String fingerprintId;
 
     @Override
     public String toString() {
@@ -34,6 +35,7 @@ public class CitizenRegistrationRequest {
                 ", email='" + email + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", address='" + address + '\'' +
+                ", fingerprintId='" + fingerprintId + '\'' +
                 '}';
     }
 }

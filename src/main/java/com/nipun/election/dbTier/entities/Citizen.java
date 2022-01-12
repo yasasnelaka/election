@@ -44,6 +44,9 @@ public class Citizen {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "fingerprint_id")
+    private String fingerprintId;
+
     @Column(name = "created_at")
     private Date createdAt;
 

@@ -25,8 +25,9 @@ public class Citizen implements Serializable {
     private String email;
     private String mobile;
     private String address;
+    private String fingerprintId;
 
     public Citizen convertEntityToResponseModel(com.nipun.election.dbTier.entities.Citizen c, PollingDivision pd) {
-        return new Citizen(c.getId(), pd, c.getNic(), c.getFullName(), c.getGender(), Gender.ALL[c.getGender()], new SimpleDateFormat("yyyy-MM-dd").format(c.getBirthday()), c.getEmail(), c.getMobile(), c.getAddress());
+        return new Citizen(c.getId(), pd, c.getNic(), c.getFullName(), c.getGender(), Gender.ALL[c.getGender()], new SimpleDateFormat("yyyy-MM-dd").format(c.getBirthday()), c.getEmail(), c.getMobile(), c.getAddress(),c.getFingerprintId());
     }
 }

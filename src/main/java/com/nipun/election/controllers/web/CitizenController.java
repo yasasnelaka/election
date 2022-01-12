@@ -102,6 +102,7 @@ public class CitizenController {
             citizen = citizenRepository.getById(request.getFormId());
             message.setMessage("Edited citizen details have been saved successfully.");
         }
+        citizen.setFingerprintId(request.getFingerprintId());
         citizen.setPollingDivisionId(request.getPollingDivision());
         citizen.setNic(request.getNic());
         citizen.setFullName(request.getFullName());
@@ -112,6 +113,7 @@ public class CitizenController {
         citizen.setAddress(request.getAddress());
         citizen.setUpdatedAt(date);
         citizen.setStatus(Status.LIVE);
+        System.out.println(request.toString());
         this.citizenRepository.saveAndFlush(citizen);
         redirectAttributes.addFlashAttribute(ModelAttributes.ALERT, message);
         return new RedirectView(URLHolder.CITIZEN_LIST_VIEW);

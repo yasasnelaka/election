@@ -97,6 +97,7 @@
                                                     th:data-email="${c.getEmail()}"
                                                     th:data-mobile="${c.getMobile()}"
                                                     th:data-address="${c.getAddress()}"
+                                                    th:data-fingerprint="${c.getFingerprintId()}"
                                                     data-formtype="1"
                                                     data-toggle="modal" data-target="#customer-registration-modal"><i
                                                     class="fas fa-user-edit"></i>
@@ -220,6 +221,7 @@
         let email = button.data('email');
         let mobile = button.data('mobile');
         let address = button.data('address');
+        let fingerprint = button.data('fingerprint');
         // let userTypeId = button.data('usertypeid');
         let modal = $(this);
         modal.find('.modal-title').text(modalTitle);
@@ -237,6 +239,7 @@
         modal.find('#email').val(email);
         modal.find('#mobile').val(mobile);
         modal.find('#address').val(address);
+        modal.find('#fingerprintId').val(fingerprint);
     });
 </script>
 </body>
