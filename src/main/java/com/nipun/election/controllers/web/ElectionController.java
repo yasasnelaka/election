@@ -5,7 +5,9 @@ import com.nipun.election.dbTier.entities.Election;
 import com.nipun.election.dbTier.repositories.ElectionRepository;
 import com.nipun.election.dbTier.repositories.UserRepository;
 import com.nipun.election.init.*;
+import com.nipun.election.models.requestModels.CitizenDeleteRequest;
 import com.nipun.election.models.requestModels.CitizenRegistrationRequest;
+import com.nipun.election.models.requestModels.ElectionDeleteRequest;
 import com.nipun.election.models.requestModels.ElectionRegistrationRequest;
 import com.nipun.election.models.responseModels.AlertMessage;
 import com.nipun.election.models.responseModels.PageDetails;
@@ -51,7 +53,7 @@ public class ElectionController {
             model.addAttribute("page_details", new PageDetails("EVS | Election", "Elections"));
             model.addAttribute("user", userDetails);
         }
-        List<Election> electionList = electionRepository.findAll();
+        List<Election> electionList = electionRepository.findAll(Status.LIVE);
         List<com.nipun.election.models.responseModels.Election> elections = new ArrayList<>();
         for (Election e : electionList) {
             User startedBy = null;
@@ -100,4 +102,29 @@ public class ElectionController {
         redirectAttributes.addFlashAttribute(ModelAttributes.ALERT, message);
         return new RedirectView(URLHolder.ELECTIONS_LIST_VIEW);
     }
+
+    @PostMapping(path = "/election-delete", consumes = MediaType.ALL_VALUE)
+    public RedirectView deleteElection(HttpServletRequest servletRequest, ElectionDeleteRequest request, RedirectAttributes redirectAttributes) {
+        if (!this.sessionConfigService.isUserValid(servletRequest.getSession())) {
+            return new RedirectView(URLHolder.LOGIN_VIEW);
+        }
+        Date date = new Date();
+        AlertMessage message = new AlertMessage();
+        message.setHeader("Message");
+        message.setShow(true);
+        Election election = this.electionRepository.getById(request.getId());
+        if (election != null) {
+            election.setUpdatedAt(date);
+            election.setStatus(Status.DELETE);
+            this.electionRepository.saveAndFlush(election);
+            message.setType(FrontEndAlertType.SUCCESS);
+            message.setMessage("Election deletion has successful!");
+        } else {
+            message.setType(FrontEndAlertType.ERROR);
+            message.setMessage("Something went wrong! Please try again.");
+        }
+        redirectAttributes.addFlashAttribute(ModelAttributes.ALERT, message);
+        return new RedirectView(URLHolder.ELECTIONS_LIST_VIEW);
+    }
+
 }

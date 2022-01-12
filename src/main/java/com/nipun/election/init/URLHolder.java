@@ -11,6 +11,7 @@ public class URLHolder {
     public static String CANDIDATES_REGISTRATION_REQUEST = "/candidate-registration-request";
     public static String CANDIDATE_DELETE_REQUEST = "/candidate-delete";
     public static String ELECTIONS_LIST_VIEW = "/elections-list";
+    public static String ELECTION_DELETE_REQUEST = "/election-delete";
     public static String ELECTION_REGISTRATION_REQUEST = "/election-registration-request";
     public static String DISTRICT_BY_PROVINCE_REQUEST = "/get-districts-by-province";
     public static String DIVISION_BY_DISTRICT_REQUEST = "/get-divisions-by-district";

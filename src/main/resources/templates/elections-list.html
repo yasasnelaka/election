@@ -115,8 +115,9 @@
                                                 </button>
                                             </span>
                                             <span style="float: left">
-                                                <form action="#">
-                                                    <button type="button" class="btn btn-danger"><i
+                                            <form th:action="@{/election-delete}" method="post">
+                                                <input type="number" name="id" hidden th:value="${e.getId()}">
+                                                    <button type="submit" class="btn btn-danger"><i
                                                             class="fa fa-trash-alt"></i>
                                                     </button>
                                                 </form>
