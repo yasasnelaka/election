@@ -20,4 +20,9 @@ public class ElectionParty implements Serializable {
     public ElectionParty convertEntityToResponseModel(com.nipun.election.dbTier.entities.ElectionParty party){
         return new ElectionParty(party.getId(),party.getName(),party.getAbbreviation(),party.getThemeColour());
     }
+
+    public String getNameToDisplay(){
+        return this.name+" ("+this.abbreviation+")";
+    }
+
 }
