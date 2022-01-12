@@ -98,6 +98,7 @@
                                             </span>
                                             <span style="float: left">
                                                 <button type="button" class="btn btn-primary"
+                                                        th:data-electionid="${e.getId()}"
                                                         data-toggle="modal"
                                                         data-target="#election-add-candidates-modal">
                                                     <i class="fas fa-user-plus"></i>
@@ -165,7 +166,7 @@
 <div th:replace="fragments/modal-fragments::election"></div>
 <!--End::Citizen Registration-->
 <!--BEGIN::Election Add Candidates-->
-<div th:replace="fragments/modal-fragments::election_add_candidates"></div>
+<div th:replace="fragments/modal-fragments::election_add_candidates(candidates=${candidates})"></div>
 
 <div th:replace="fragments/layout-fragments::scripts"></div>
 <!-- Page specific script -->
@@ -234,6 +235,16 @@
 
         modal.find('#startTime').val(st.toISOString().slice(0, 16));
         modal.find('#endTime').val(et.toISOString().slice(0, 16));
+    });
+</script>
+
+<script>
+    $('#election-add-candidates-modal').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget);
+        let electionId = button.data('electionid');
+        let modal = $(this);
+        modal.find('#electionId').val(electionId);
+        document.getElementById('election').value = electionId;
     });
 </script>
 </body>

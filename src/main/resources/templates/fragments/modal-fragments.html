@@ -17,7 +17,8 @@
                                 onchange="changeDistrict(this.value,'district')" class="form-control" id="province"
                                 name="province">
                             <option disabled selected>--Select--</option>
-                            <option  th:each="province,iterationStatus:${provinces}" th:value="${province['id']}" th:text="${province['name']}"></option>
+                            <option th:each="province,iterationStatus:${provinces}" th:value="${province['id']}"
+                                    th:text="${province['name']}"></option>
                             <!--                            <option selected value="0">Central Province</option>-->
                             <!--                            <option value="1">Eastern Province</option>-->
                             <!--                            <option value="2">Northern Province</option>-->
@@ -150,7 +151,8 @@
                                 onchange="changeDistrict(this.value,'district')" class="form-control" id="province"
                                 name="province">
                             <option disabled selected>--Select--</option>
-                            <option  th:each="province,iterationStatus:${provinces}" th:value="${province['id']}" th:text="${province['name']}"></option>
+                            <option th:each="province,iterationStatus:${provinces}" th:value="${province['id']}"
+                                    th:text="${province['name']}"></option>
                             <!--                            <option selected value="0">Central Province</option>-->
                             <!--                            <option value="1">Eastern Province</option>-->
                             <!--                            <option value="2">Northern Province</option>-->
@@ -223,7 +225,8 @@
                         <select class="form-control" id="electionParty"
                                 name="electionParty" required>
                             <option disabled selected>--Select--</option>
-                            <option th:each="party,iterationStatus:${parties}"  th:value="${party['id']}" th:text="${party['name']}"></option>
+                            <option th:each="party,iterationStatus:${parties}" th:value="${party['id']}"
+                                    th:text="${party['name']}"></option>
                             <!--                            <option selected value="0">Sri Lanka Freedom Party(SLFP)</option>-->
                             <!--                            <option value="1">Samagi Jana Balawegaya (SJB)</option>-->
                             <!--                            <option value="2">United National Party (UNP)</option>-->
@@ -343,7 +346,7 @@
 </div>
 
 
-<div th:fragment="election_add_candidates" class="modal fade" id="election-add-candidates-modal">
+<div th:fragment="election_add_candidates(candidates)" class="modal fade" id="election-add-candidates-modal">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -362,30 +365,34 @@
                         <th>District</th>
                         <th>Polling Division</th>
                         <th>Political Party</th>
+                        <th>Number</th>
                         <th>NIC</th>
                         <th>Full Name</th>
-                        <th>Gender</th>
-                        <th>Email</th>
-                        <th>Mobile</th>
+                        <!--                        <th>Gender</th>-->
+                        <!--                        <th>Email</th>-->
+                        <!--                        <th>Mobile</th>-->
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Western</td>
-                        <td>Colombo</td>
-                        <td>A - Colombo North</td>
-                        <th>Sri Lanka Freedom Party(SLFP)</th>
-                        <td>945465666v</td>
-                        <td>John Smith</td>
-                        <td>Male</td>
-                        <td>john@gmail.com</td>
-                        <td>+94771234567</td>
+
+                    <tr th:id="'candidates_table_row_'+${c.getId()}"
+                        th:each="c,iterationStatus:${candidates}">
+                        <td th:text="${iterationStatus.count}"></td>
+                        <td th:text="${c.getPollingDivision().getProvinceDivisionName()}"></td>
+                        <td th:text="${c.getPollingDivision().getDistrictDivisionName()}"></td>
+                        <td th:text="${c.getPollingDivision().getPollingDivisionName()}"></td>
+                        <td th:text="${c.getElectionParty().getNameToDisplay()}"></td>
+                        <td th:text="${c.getElectionNumber()}"></td>
+                        <td th:text="${c.getNic()}"></td>
+                        <td th:text="${c.getFullName()}"></td>
+                        <!--                        <td th:text="${c.getGender()}"></td>-->
+                        <!--                        <td th:text="${c.getEmail()}"></td>-->
+                        <!--                        <td th:text="${c.getMobile()}"></td>-->
                         <td>
                             <form th:action="@{/assign-candidate-to-election}" method="post">
-                                <input type="text" hidden value="0" id="electionId" name="election">
-                                <input type="text" hidden value="0" id="candidateId" name="candidateId">
+                                <input type="number" hidden value="0" name="electionId" id="electionId">
+                                <input type="number" hidden th:value="${c.getId()}" name="candidateId">
                                 <button type="submit" class="btn btn-success"><i class="fa fa-plus-square"></i></button>
                             </form>
                         </td>
@@ -397,7 +404,7 @@
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <form th:action="@{/assign-all-candidates-to-election}" method="post">
-                    <input type="text" hidden value="0" id="election" name="election">
+                    <input type="number" hidden value="0" name="electionId" id="election">
                     <button type="submit" class="btn btn-primary"><i class="fa fa-plus-square"></i> Add All</button>
                 </form>
             </div>
