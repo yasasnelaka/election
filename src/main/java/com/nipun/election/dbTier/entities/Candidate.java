@@ -39,7 +39,7 @@ public class Candidate {
     private java.lang.Byte gender;
 
     @Column(name = "birthday")
-    private java.sql.Date birthday;
+    private Date birthday;
 
     @Column(name = "email")
     private String email;

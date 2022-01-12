@@ -150,5 +150,22 @@
         // });
     });
 </script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    let isAlertSet = /*[[${alert !=null }]]*/ false;
+
+    if (isAlertSet) {
+        var isShowAlert = /*[[${alert?.show}]]*/ 'default';
+        var title = /*[[${alert?.header}]]*/ 'default';
+        var message = /*[[${alert?.message}]]*/ 'default';
+        var type = /*[[${alert?.type}]]*/ 'default';
+        if (isShowAlert) {
+            showAlert(type, title, message);
+        }
+    }
+
+    /*]]>*/
+</script>
 </body>
 </html>

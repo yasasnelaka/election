@@ -2,10 +2,9 @@ package com.nipun.election.controllers.web;
 
 import com.nipun.election.dbTier.entities.*;
 import com.nipun.election.dbTier.repositories.*;
-import com.nipun.election.init.ModelAttributes;
-import com.nipun.election.init.URLHolder;
-import com.nipun.election.init.ViewHolder;
+import com.nipun.election.init.*;
 import com.nipun.election.models.requestModels.CandidateRegistrationRequest;
+import com.nipun.election.models.responseModels.AlertMessage;
 import com.nipun.election.models.responseModels.PageDetails;
 import com.nipun.election.models.responseModels.UserDetails;
 import com.nipun.election.services.SessionConfigService;
@@ -14,14 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 public class CandidateController {
@@ -94,8 +93,38 @@ public class CandidateController {
     }
 
     @PostMapping(path = "/candidate-registration-request", consumes = MediaType.ALL_VALUE)
-    public RedirectView candidateRegistration(HttpServletRequest servletRequest, CandidateRegistrationRequest request, Model model) {
-//TODO::Implement the business process for citizenRegistration
+    public RedirectView candidateRegistration(HttpServletRequest servletRequest, CandidateRegistrationRequest request, RedirectAttributes redirectAttributes) throws ParseException {
+        if (!this.sessionConfigService.isUserValid(servletRequest.getSession())) {
+            return new RedirectView(URLHolder.LOGIN_VIEW);
+        }
+        Date date = new Date();
+        AlertMessage message = new AlertMessage();
+        message.setHeader("Message");
+        message.setShow(true);
+        message.setType(FrontEndAlertType.SUCCESS);
+        Candidate candidate = null;
+        if (request.getFormType() == FormTypes.SAVE) {
+            candidate = new Candidate();
+            candidate.setCreatedAt(date);
+            message.setMessage("Candidate has been saved successfully.");
+        } else {
+            candidate = candidateRepository.getById(request.getFormId());
+            message.setMessage("Edited candidate details have been saved successfully.");
+        }
+        candidate.setElectionPartyId(request.getElectionParty());
+        candidate.setPollingDivisionId(request.getPollingDivision());
+        candidate.setNic(request.getNic());
+        candidate.setElectionNumber(request.getElectionNumber());
+        candidate.setFullName(request.getFullName());
+        candidate.setGender((byte) request.getGender());
+        candidate.setBirthday(new SimpleDateFormat("yyyy-MM-dd").parse(request.getBirthday()));
+        candidate.setEmail(request.getEmail());
+        candidate.setMobile(request.getMobile());
+        candidate.setAddress(request.getAddress());
+        candidate.setUpdatedAt(date);
+        candidate.setStatus(Status.LIVE);
+        this.candidateRepository.saveAndFlush(candidate);
+        redirectAttributes.addFlashAttribute(ModelAttributes.ALERT, message);
         return new RedirectView(URLHolder.CANDIDATES_LIST_VIEW);
     }
 }
