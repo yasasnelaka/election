@@ -9,6 +9,7 @@ public class URLHolder {
     public static String CITIZEN_DELETE_REQUEST = "/citizen-delete";
     public static String CANDIDATES_LIST_VIEW = "/candidates-list";
     public static String CANDIDATES_REGISTRATION_REQUEST = "/candidate-registration-request";
+    public static String CANDIDATE_DELETE_REQUEST = "/candidate-delete";
     public static String ELECTIONS_LIST_VIEW = "/elections-list";
     public static String ELECTION_REGISTRATION_REQUEST = "/election-registration-request";
     public static String DISTRICT_BY_PROVINCE_REQUEST = "/get-districts-by-province";

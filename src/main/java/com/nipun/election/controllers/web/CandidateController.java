@@ -3,7 +3,9 @@ package com.nipun.election.controllers.web;
 import com.nipun.election.dbTier.entities.*;
 import com.nipun.election.dbTier.repositories.*;
 import com.nipun.election.init.*;
+import com.nipun.election.models.requestModels.CandidateDeleteRequest;
 import com.nipun.election.models.requestModels.CandidateRegistrationRequest;
+import com.nipun.election.models.requestModels.CitizenDeleteRequest;
 import com.nipun.election.models.responseModels.AlertMessage;
 import com.nipun.election.models.responseModels.PageDetails;
 import com.nipun.election.models.responseModels.UserDetails;
@@ -50,7 +52,7 @@ public class CandidateController {
         } else {
             UserDetails userDetails = sessionConfigService.extractUserDetails(session);
             model.addAttribute(ModelAttributes.USER, userDetails);
-            model.addAttribute("page_details", new PageDetails("EVS | Citizens", "Citizens"));
+            model.addAttribute("page_details", new PageDetails("EVS | Candidates", "Candidates"));
             model.addAttribute("user", userDetails);
         }
 
@@ -78,7 +80,7 @@ public class CandidateController {
         model.addAttribute(ModelAttributes.ELECTION_PARTIES, parties);
         //END::Extracting Election Parties
 
-        List<Candidate> candidateList = candidateRepository.findAll();
+        List<Candidate> candidateList = candidateRepository.findAll(Status.LIVE);
         List<com.nipun.election.models.responseModels.Candidate> candidates = new ArrayList<>();
         for (Candidate candidate : candidateList) {
             ElectionParty party = this.electionPartyRepository.getById(candidate.getElectionPartyId());
@@ -127,4 +129,30 @@ public class CandidateController {
         redirectAttributes.addFlashAttribute(ModelAttributes.ALERT, message);
         return new RedirectView(URLHolder.CANDIDATES_LIST_VIEW);
     }
+
+
+    @PostMapping(path = "/candidate-delete", consumes = MediaType.ALL_VALUE)
+    public RedirectView deleteBankUser(HttpServletRequest servletRequest, CandidateDeleteRequest request, RedirectAttributes redirectAttributes) {
+        if (!this.sessionConfigService.isUserValid(servletRequest.getSession())) {
+            return new RedirectView(URLHolder.LOGIN_VIEW);
+        }
+        Date date = new Date();
+        AlertMessage message = new AlertMessage();
+        message.setHeader("Message");
+        message.setShow(true);
+        Candidate candidate = candidateRepository.getById(request.getId());
+        if (candidate != null) {
+            candidate.setUpdatedAt(date);
+            candidate.setStatus(Status.DELETE);
+            candidateRepository.saveAndFlush(candidate);
+            message.setType(FrontEndAlertType.SUCCESS);
+            message.setMessage("Candidate deletion has successful!");
+        } else {
+            message.setType(FrontEndAlertType.ERROR);
+            message.setMessage("Something went wrong! Please try again.");
+        }
+        redirectAttributes.addFlashAttribute(ModelAttributes.ALERT, message);
+        return new RedirectView(URLHolder.CANDIDATES_LIST_VIEW);
+    }
+
 }
