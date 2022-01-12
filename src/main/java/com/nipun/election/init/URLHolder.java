@@ -13,6 +13,7 @@ public class URLHolder {
     public static String ELECTIONS_LIST_VIEW = "/elections-list";
     public static String ELECTION_DELETE_REQUEST = "/election-delete";
     public static String ELECTION_REGISTRATION_REQUEST = "/election-registration-request";
+    public static String ELECTION_CHANGE_STATUS_REQUEST = "/election-change-status";
     public static String DISTRICT_BY_PROVINCE_REQUEST = "/get-districts-by-province";
     public static String DIVISION_BY_DISTRICT_REQUEST = "/get-divisions-by-district";
 }

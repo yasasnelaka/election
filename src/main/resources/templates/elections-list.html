@@ -79,17 +79,21 @@
                                         <td th:text="${e.getEndTimeToDisplay()}"></td>
                                         <td style="float: left;position: relative">
                                             <span style="float: left">
-                                                <form action="#">
-                                                    <button type="button" class="btn btn-success">
-                                                        <i class="fas fa-play"></i>
-                                                    </button>
+                                                <form th:action="@{/election-change-status}" method="post">
+                                                    <input type="number" name="id" hidden th:value="${e.getId()}">
+                                                    <input type="number" name="status" hidden value="1">
+                                                        <button type="submit" class="btn btn-success">
+                                                            <i class="fas fa-play"></i>
+                                                        </button>
                                                 </form>
                                             </span>
                                             <span style="float: left">
-                                                <form action="#">
-                                                    <button type="button" class="btn btn-info">
-                                                        <i class="fas fa-stop"></i>
-                                                    </button>
+                                                <form th:action="@{/election-change-status}" method="post">
+                                                    <input type="number" name="id" hidden th:value="${e.getId()}">
+                                                    <input type="number" name="status" hidden value="2">
+                                                        <button type="submit" class="btn btn-info">
+                                                            <i class="fas fa-stop"></i>
+                                                        </button>
                                                 </form>
                                             </span>
                                             <span style="float: left">
@@ -228,8 +232,8 @@
         let et = new Date(endTime);
         et.setMinutes(et.getMinutes() - et.getTimezoneOffset());
 
-        modal.find('#startTime').val(st.toISOString().slice(0,16));
-        modal.find('#endTime').val(et.toISOString().slice(0,16));
+        modal.find('#startTime').val(st.toISOString().slice(0, 16));
+        modal.find('#endTime').val(et.toISOString().slice(0, 16));
     });
 </script>
 </body>

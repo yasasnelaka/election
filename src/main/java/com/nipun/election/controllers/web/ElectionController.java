@@ -5,10 +5,7 @@ import com.nipun.election.dbTier.entities.Election;
 import com.nipun.election.dbTier.repositories.ElectionRepository;
 import com.nipun.election.dbTier.repositories.UserRepository;
 import com.nipun.election.init.*;
-import com.nipun.election.models.requestModels.CitizenDeleteRequest;
-import com.nipun.election.models.requestModels.CitizenRegistrationRequest;
-import com.nipun.election.models.requestModels.ElectionDeleteRequest;
-import com.nipun.election.models.requestModels.ElectionRegistrationRequest;
+import com.nipun.election.models.requestModels.*;
 import com.nipun.election.models.responseModels.AlertMessage;
 import com.nipun.election.models.responseModels.PageDetails;
 import com.nipun.election.models.responseModels.User;
@@ -119,6 +116,34 @@ public class ElectionController {
             this.electionRepository.saveAndFlush(election);
             message.setType(FrontEndAlertType.SUCCESS);
             message.setMessage("Election deletion has successful!");
+        } else {
+            message.setType(FrontEndAlertType.ERROR);
+            message.setMessage("Something went wrong! Please try again.");
+        }
+        redirectAttributes.addFlashAttribute(ModelAttributes.ALERT, message);
+        return new RedirectView(URLHolder.ELECTIONS_LIST_VIEW);
+    }
+
+    @PostMapping(path = "/election-change-status", consumes = MediaType.ALL_VALUE)
+    public RedirectView changeElectionStatus(HttpServletRequest servletRequest, ElectionChangeStatusRequest request, RedirectAttributes redirectAttributes) {
+        if (!this.sessionConfigService.isUserValid(servletRequest.getSession())) {
+            return new RedirectView(URLHolder.LOGIN_VIEW);
+        }
+        Date date = new Date();
+        AlertMessage message = new AlertMessage();
+        message.setHeader("Message");
+        message.setShow(true);
+        Election election = this.electionRepository.getById(request.getId());
+        if (election != null) {
+            election.setUpdatedAt(date);
+            election.setStatus(request.getStatus());
+            this.electionRepository.saveAndFlush(election);
+            message.setType(FrontEndAlertType.SUCCESS);
+            if (request.getStatus()==ElectionStatus.IN_PROGRESS){
+                message.setMessage("Election has started!");
+            }else if (request.getStatus()==ElectionStatus.END){
+                message.setMessage("Election has ended!");
+            }
         } else {
             message.setType(FrontEndAlertType.ERROR);
             message.setMessage("Something went wrong! Please try again.");
