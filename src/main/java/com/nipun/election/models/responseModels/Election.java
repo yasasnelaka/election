@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Getter
@@ -30,4 +31,21 @@ public class Election implements Serializable {
     public Election convertEntityToResponseModel(com.nipun.election.dbTier.entities.Election e, User startedBy, User endedBy) {
         return new Election(e.getId(), e.getName(), e.getYear(), e.getMaxSeats(), e.getStartTime(), startedBy, e.getStartedTime(), e.getEndTime(), endedBy, e.getEndedTime(), e.getVotes(), e.getVotesValid(), e.getVotesInvalid());
     }
+
+    public String getStartedTimeToDisplay() {
+        return this.startedTime == null ? "-" : new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(startedTime);
+    }
+
+    public String getStartTimeToDisplay() {
+        return this.startTime == null ? "-" : new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(startTime);
+    }
+
+    public String getEndTimeToDisplay() {
+        return this.endTime == null ? "-" : new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(endTime);
+    }
+
+    public String getEndedTimeToDisplay() {
+        return this.endedTime == null ? "-" : new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(endedTime);
+    }
+
 }

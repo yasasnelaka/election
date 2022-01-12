@@ -17,4 +17,17 @@ public class ElectionRegistrationRequest {
     private int maxSeats;
     private String startTime;
     private String endTime;
+
+    @Override
+    public String toString() {
+        return "ElectionRegistrationRequest{" +
+                "formId=" + formId +
+                ", formType=" + formType +
+                ", name='" + name + '\'' +
+                ", year=" + year +
+                ", maxSeats=" + maxSeats +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                '}';
+    }
 }
