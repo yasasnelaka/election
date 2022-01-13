@@ -2,18 +2,24 @@ package com.nipun.election.controllers.web;
 
 import com.nipun.election.dbTier.entities.*;
 import com.nipun.election.dbTier.repositories.*;
-import com.nipun.election.init.ElectionStatus;
-import com.nipun.election.init.ModelAttributes;
-import com.nipun.election.init.Status;
-import com.nipun.election.init.ViewHolder;
+import com.nipun.election.init.*;
+import com.nipun.election.models.requestModels.ElectionAddCandidateRequest;
+import com.nipun.election.models.requestModels.VoteRequest;
+import com.nipun.election.models.responseModels.AlertMessage;
 import com.nipun.election.models.responseModels.PageDetails;
 import com.nipun.election.models.responseModels.PollingDivision;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -48,6 +54,8 @@ public class VoteController {
         List<com.nipun.election.models.responseModels.ElectionCandidate> electionCandidateList = new ArrayList<>();
         Election election = this.electionRepository.getOneByElectionStatus(ElectionStatus.IN_PROGRESS, Status.LIVE);
         if (election != null) {
+            model.addAttribute(ModelAttributes.ELECTION,        new com.nipun.election.models.responseModels.Election().convertEntityToResponseModel(election,null,null));
+            model.addAttribute("page_details", new PageDetails("EVS | Voting Form", election.getName()+" ("+election.getYear()+")"));
             List<ElectionCandidate> allByElection = electionCandidateRepository.getAllByElection(election.getId(), Status.LIVE);
             for (ElectionCandidate ec : allByElection) {
                 Candidate candidate = candidateRepository.getById(ec.getCandidateId());
@@ -67,5 +75,27 @@ public class VoteController {
         }
 
         return ViewHolder.VOTING_FORM;
+    }
+
+    @PostMapping(path = "/vote-request", consumes = MediaType.ALL_VALUE)
+    public RedirectView addCandidateToElection(HttpServletRequest servletRequest, VoteRequest request, RedirectAttributes redirectAttributes) {
+        Date date = new Date();
+        AlertMessage message = new AlertMessage();
+        message.setHeader("Message");
+        message.setShow(true);
+        if ((request.getElectionCandidates()==null) || (request.getElectionCandidates().size()>3)){
+            redirectAttributes.addFlashAttribute(ModelAttributes.ALERT,new AlertMessage("Alert","You can only select 3 maximum candidates!",FrontEndAlertType.WARNING,true));
+            return new RedirectView(URLHolder.VOTING_FORM_VIEW);
+        }
+        List<Integer> electionCandidates = request.getElectionCandidates();
+        for (int cd:electionCandidates){
+            ElectionCandidate electionCandidate = this.electionCandidateRepository.getById(cd);
+            if (electionCandidate!=null){
+                electionCandidate.setVotes(electionCandidate.getVotes()+1);
+                electionCandidate.setUpdatedAt(date);
+                electionCandidateRepository.saveAndFlush(electionCandidate);
+            }
+        }
+        return new RedirectView(URLHolder.VOTING_FORM_VIEW);
     }
 }

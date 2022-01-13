@@ -13,6 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ElectionCandidate extends Candidate implements Serializable {
+    private int electionCandidateId;
     private int electionId;
     private int seatTypeId;
     private String seatType;
@@ -20,7 +21,7 @@ public class ElectionCandidate extends Candidate implements Serializable {
     private int votes;
 
     public ElectionCandidate convertEntityToResponseModel(com.nipun.election.dbTier.entities.ElectionCandidate ec, Candidate candidate) {
-        ElectionCandidate c = new ElectionCandidate(ec.getId(), ec.getSeatType(), SeatType.ALL[ec.getSeatType()], ec.getIsLeader() == 1, ec.getVotes());
+        ElectionCandidate c = new ElectionCandidate(ec.getId(),ec.getElectionId(), ec.getSeatType(), SeatType.ALL[ec.getSeatType()], ec.getIsLeader() == 1, ec.getVotes());
         if (candidate != null) {
             c.setId(candidate.getId());
             c.setElectionParty(candidate.getElectionParty());

@@ -8,5 +8,6 @@ public class ModelAttributes {
     public static final String PROVINCES = "provinces";
     public static final String ELECTION_PARTIES = "parties";
     public static final String ELECTIONS = "elections";
-    public static final String ELECTION_CANDIDATES = "ec";
+    public static final String ELECTION = "election";
+    public static final String ELECTION_CANDIDATES = "ecs";
 }
