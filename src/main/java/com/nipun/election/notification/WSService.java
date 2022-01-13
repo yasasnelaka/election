@@ -1,5 +1,6 @@
 package com.nipun.election.notification;
 
+import com.nipun.election.models.responseModels.MessageBrokerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
@@ -14,14 +15,12 @@ public class WSService {
         this.messagingTemplate = messagingTemplate;
     }
 
-    public void notifyFrontend(final String message) {
+    public void notifyFrontend(final MessageBrokerResponse response) {
         //Sending Notification
-        ResponseMessage response = new ResponseMessage(message);
         messagingTemplate.convertAndSend("/topic/messages", response);
     }
 
-    public void notifyUser(final String id, final String message) {
-        ResponseMessage response = new ResponseMessage(message);
+    public void notifyUser(final String id, final MessageBrokerResponse response) {
 
         messagingTemplate.convertAndSendToUser(id, "/topic/private-messages", response);
     }

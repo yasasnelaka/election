@@ -113,7 +113,6 @@ public class CitizenController {
         citizen.setAddress(request.getAddress());
         citizen.setUpdatedAt(date);
         citizen.setStatus(Status.LIVE);
-        System.out.println(request.toString());
         this.citizenRepository.saveAndFlush(citizen);
         redirectAttributes.addFlashAttribute(ModelAttributes.ALERT, message);
         return new RedirectView(URLHolder.CITIZEN_LIST_VIEW);

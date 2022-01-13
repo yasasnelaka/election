@@ -18,4 +18,5 @@ public class URLHolder {
     public static final String DIVISION_BY_DISTRICT_REQUEST = "/get-divisions-by-district";
     public static final String ASSIGN_CANDIDATE_TO_ELECTION_REQUEST = "/assign-candidate-to-election";
     public static final String ASSIGN_ALL_CANDIDATE_TO_ELECTION_REQUEST = "/assign-all-candidates-to-election";
+    public static final String VOTING_FORM_VIEW = "/voting-form";
 }

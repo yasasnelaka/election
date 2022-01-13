@@ -97,12 +97,15 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="row m-2">
-                                <div class="col-6">
-                                    <button type="submit" class="btn btn-success btn-lg form-control">SAVE</button>
-                                </div>
-                                <div class="col-6">
-                                    <button type="submit" class="btn btn-danger btn-lg form-control">CANCEL MY VOTE</button>
+                            <div id="voteForm">
+                                <div class="row m-2">
+                                    <div class="col-6">
+                                        <button type="submit" class="btn btn-success btn-lg form-control">SAVE</button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button type="submit" class="btn btn-danger btn-lg form-control">CANCEL MY VOTE
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <!-- /.card-body -->
@@ -121,6 +124,14 @@
 
 <div th:replace="fragments/layout-fragments::scripts"></div>
 <!-- Page specific script -->
+<!--Web Socket-->
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+<script th:src="@{js/notification.js}"></script>
+<!--Web Socket-->
+
 <script>
     $(function () {
         // $("#example1").DataTable({
@@ -137,6 +148,42 @@
             "responsive": true,
         });
     });
+</script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    let isAlertSet = /*[[${alert !=null }]]*/ false;
+
+    if (isAlertSet) {
+        var isShowAlert = /*[[${alert?.show}]]*/ 'default';
+        var title = /*[[${alert?.header}]]*/ 'default';
+        var message = /*[[${alert?.message}]]*/ 'default';
+        var type = /*[[${alert?.type}]]*/ 'default';
+        if (isShowAlert) {
+            showAlert(type, title, message);
+        }
+    }
+
+    /*]]>*/
+</script>
+<script>
+    $( document ).ready(function() {
+        let vt = localStorage.getItem('vt');
+        if (vt==1){
+            setVisibleTrue();
+        }else{
+            setVisibleFalse();
+        }
+    });
+
+    function setVisibleFalse(){
+        document.getElementById('voteForm').hidden = true;
+    }
+
+    function setVisibleTrue(){
+        document.getElementById('voteForm').hidden = false;
+    }
 </script>
 </body>
 </html>
