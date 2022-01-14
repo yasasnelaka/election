@@ -14,4 +14,10 @@ public interface ElectionCandidateRepository extends JpaRepository<ElectionCandi
     @Query(value="SELECT * FROM `election_candidate` ec WHERE ec.election_id=:electionId AND ec.status=:status",nativeQuery=true)
     public List<ElectionCandidate> getAllByElection(int electionId, int status);
 
+    @Query(value="SELECT sum(ec.votes) AS 'X' FROM election_candidate ec where ec.election_id = :electionId AND ec.status=:status AND ec.candidate_id in (SELECT c.id from candidate c where c.election_party_id = :partyId and c.status=:status)",nativeQuery=true)
+    public Integer getTotalVotesByElectionAndParty(int electionId,int partyId, int status);
+
+    @Query(value="SELECT sum(ec.votes) AS 'X' FROM election_candidate ec where ec.election_id = :electionId AND ec.status=:status AND ec.candidate_id in (SELECT c.id from candidate c where c.status=:status)",nativeQuery=true)
+    public Integer getTotalVotesByElection(int electionId, int status);
+
 }

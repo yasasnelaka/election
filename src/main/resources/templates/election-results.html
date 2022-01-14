@@ -124,14 +124,15 @@
                                 <div class="table-responsive">
                                     <table class="table m-0">
                                         <tbody>
-                                        <tr>
+                                        <tr th:id="'el_table_row_'+${p.getId()}"
+                                            th:each="p,iterationStatus:${parties}">
                                             <td>
                                                 <div class="progress-group">
-                                                    Sri Lanka Freedom Party (SLFP) - <b>75%</b>
-                                                    <span class="float-right"><b>5 Seats</b></span>
+                                                    <span th:text="${p.getDisplayName()}"></span> -<b th:text="${p.getDisplayPercentage()}">75%</b>
+                                                    <span class="float-right"><b th:text="${p.getSeats()}">5</b><b> Seats</b></span>
 
                                                     <div class="progress">
-                                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%; background-color: #f56954;">75%</div>
+                                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" th:aria-valuenow="${p.getPercentage()}" aria-valuemin="0" aria-valuemax="100" th:style="${p.getProgressBarStyles()}" th:text="${p.getDisplayPercentage()}"></div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -232,7 +233,25 @@
 
 <div th:replace="fragments/layout-fragments::scripts"></div>
 <!-- Page specific script -->
-<script>
+<script th:inline="javascript">
+
+    var lbls = [
+    ];
+    var votes = [];
+    var clrs = [];
+
+    /*<![CDATA[*/
+
+        let parties = /*[[${parties}]]*/ [];
+        console.log(parties);
+        for (let i = 0;i<parties.length;i++){
+            lbls[i] = parties[i].abbreviation;
+            votes[i] = parties[i].votes;
+            clrs[i] = parties[i].color;
+        }
+
+    /*]]>*/
+
     $(function () {
         $("#example1").DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,
@@ -249,18 +268,11 @@
         // });
     });
     var donutData = {
-        labels: [
-            'SLFP',
-            'UNP',
-            'TDP',
-            'SJB',
-            'TNA',
-            'UNFP',
-        ],
+        labels: lbls,
         datasets: [
             {
-                data: [700000, 525000, 412533, 32155, 12500, 50000],
-                backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                data: votes,
+                backgroundColor: clrs,
             }
         ]
     }
