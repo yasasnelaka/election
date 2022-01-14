@@ -128,11 +128,16 @@
                                             th:each="p,iterationStatus:${parties}">
                                             <td>
                                                 <div class="progress-group">
-                                                    <span th:text="${p.getDisplayName()}"></span> -<b th:text="${p.getDisplayPercentage()}">75%</b>
+                                                    <span th:text="${p.getDisplayName()}"></span> -<b
+                                                        th:text="${p.getDisplayPercentage()}">75%</b>
                                                     <span class="float-right"><b th:text="${p.getSeats()}">5</b><b> Seats</b></span>
 
                                                     <div class="progress">
-                                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" th:aria-valuenow="${p.getPercentage()}" aria-valuemin="0" aria-valuemax="100" th:style="${p.getProgressBarStyles()}" th:text="${p.getDisplayPercentage()}"></div>
+                                                        <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                             role="progressbar" th:aria-valuenow="${p.getPercentage()}"
+                                                             aria-valuemin="0" aria-valuemax="100"
+                                                             th:style="${p.getProgressBarStyles()}"
+                                                             th:text="${p.getDisplayPercentage()}"></div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -179,21 +184,23 @@
                                         <th>Full Name</th>
                                         <th>Gender</th>
                                         <th>Votes</th>
-                                        <th>Is Elected</th>
+<!--                                        <th>Is Elected</th>-->
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Western</td>
-                                        <td>Colombo</td>
-                                        <td>A - Colombo North</td>
-                                        <td>Sri Lanka Freedom Party(SLFP)</td>
-                                        <td>5</td>
-                                        <td>John Smith</td>
-                                        <td>Male</td>
-                                        <td>13,522</td>
-                                        <td><span class="badge badge-success">Yes</span></td>
+                                    <tr th:id="'cn_table_row_'+${c.getId()}"
+                                        th:each="c,iterationStatus:${candidates}">
+                                        <td th:text="${iterationStatus.count}"></td>
+                                        <td th:text="${c.getProvince()}"></td>
+                                        <td th:text="${c.getDistrict()}"></td>
+                                        <td th:text="${c.getPollingDivision()}"></td>
+                                        <td th:text="${c.getParty()}"></td>
+                                        <td th:text="${c.getNumber()}"></td>
+                                        <td th:text="${c.getFullName()}"></td>
+                                        <td th:text="${c.getGender()}"></td>
+                                        <td th:text="${c.getVotes()}"></td>
+<!--                                        <td th:text="${c.getIsElected()}"><span class="badge badge-success">Yes</span>-->
+                                        </td>
                                     </tr>
                                     </tbody>
                                     <tfoot>
@@ -207,7 +214,7 @@
                                         <th>Full Name</th>
                                         <th>Gender</th>
                                         <th>Votes</th>
-                                        <th>Is Elected</th>
+<!--                                        <th>Is Elected</th>-->
                                     </tr>
                                     </tfoot>
                                 </table>
@@ -235,20 +242,19 @@
 <!-- Page specific script -->
 <script th:inline="javascript">
 
-    var lbls = [
-    ];
+    var lbls = [];
     var votes = [];
     var clrs = [];
 
     /*<![CDATA[*/
 
-        let parties = /*[[${parties}]]*/ [];
-        console.log(parties);
-        for (let i = 0;i<parties.length;i++){
-            lbls[i] = parties[i].abbreviation;
-            votes[i] = parties[i].votes;
-            clrs[i] = parties[i].color;
-        }
+    let parties = /*[[${parties}]]*/ [];
+    console.log(parties);
+    for (let i = 0; i < parties.length; i++) {
+        lbls[i] = parties[i].abbreviation;
+        votes[i] = parties[i].votes;
+        clrs[i] = parties[i].color;
+    }
 
     /*]]>*/
 
