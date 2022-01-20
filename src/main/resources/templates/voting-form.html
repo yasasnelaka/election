@@ -43,66 +43,54 @@
                                 <!--                                </div>-->
                             </div>
                             <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>Political Party</th>
-                                        <th>Number</th>
-                                        <th>Full Name</th>
-                                        <th>Vote</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th>Sri Lanka Freedom Party(SLFP)</th>
-                                        <th>5</th>
-                                        <td>John Smith</td>
-                                        <td>
-                                            <div class="form-group">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox">
-                                                    <!--                                                    <label class="form-check-label">Vote</label>-->
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                            <form th:action="@{vote-request}" method="post">
+                                <input type="text" hidden name="electionId" th:value="${election.getId()}">
+                                <div class="card-body">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Political Party</th>
+                                            <th>Number</th>
+                                            <th>Full Name</th>
+                                            <th>Vote</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
 
-                                    <tr>
-                                        <th>Sri Lanka Freedom Party(SLFP)</th>
-                                        <th>2</th>
-                                        <td>Sirisena</td>
-                                        <td>
-                                            <div class="form-group">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox">
-                                                    <!--                                                    <label class="form-check-label">Vote</label>-->
+                                        <tr th:id="'el_table_row_'+${ec.getId()}"
+                                            th:each="ec,iterationStatus:${ecs}">
+                                            <td></td>
+                                            <td th:text="${ec.getElectionParty().getNameToDisplay()}"></td>
+                                            <td th:text="${ec.getElectionNumber()}"></td>
+                                            <td th:text="${ec.getFullName()}"></td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" name="electionCandidates" th:value="${ec.getElectionCandidateId()}" type="checkbox" onchange="addValue(this.value)">
+                                                        <!--                                                    <label class="form-check-label">Vote</label>-->
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Sri Lanka Freedom Party(SLFP)</th>
-                                        <th>10</th>
-                                        <td>Mahinda Rajapaksha</td>
-                                        <td>
-                                            <div class="form-group">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox">
-                                                    <!--                                                    <label class="form-check-label">Vote</label>-->
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="row m-2">
-                                <div class="col-6">
-                                    <button type="submit" class="btn btn-success btn-lg form-control">SAVE</button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="col-6">
-                                    <button type="submit" class="btn btn-danger btn-lg form-control">CANCEL MY VOTE</button>
+                                <div id="voteForm" hidden>
+                                    <div class="row m-2">
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-success btn-lg form-control">SAVE</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div id="voteForm2" hidden>
+                                <div class="row m-2">
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-danger btn-lg form-control">CANCEL MY VOTE
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <!-- /.card-body -->
@@ -121,6 +109,14 @@
 
 <div th:replace="fragments/layout-fragments::scripts"></div>
 <!-- Page specific script -->
+<!--Web Socket-->
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+<script th:src="@{js/notification.js}"></script>
+<!--Web Socket-->
+
 <script>
     $(function () {
         // $("#example1").DataTable({
@@ -137,6 +133,54 @@
             "responsive": true,
         });
     });
+</script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    let isAlertSet = /*[[${alert !=null }]]*/ false;
+
+    if (isAlertSet) {
+        var isShowAlert = /*[[${alert?.show}]]*/ 'default';
+        var title = /*[[${alert?.header}]]*/ 'default';
+        var message = /*[[${alert?.message}]]*/ 'default';
+        var type = /*[[${alert?.type}]]*/ 'default';
+        if (isShowAlert) {
+            showAlert(type, title, message);
+        }
+    }
+
+    /*]]>*/
+</script>
+<script>
+    $(document).ready(function () {
+        let vt = localStorage.getItem('vt');
+        if (vt == 1) {
+            setVisibleTrue();
+        } else {
+            setVisibleFalse();
+        }
+    });
+
+    function setVisibleFalse() {
+        document.getElementById('voteForm').hidden = true;
+        document.getElementById('voteForm2').hidden = true;
+    }
+
+    function setVisibleTrue() {
+        document.getElementById('voteForm').hidden = false;
+        document.getElementById('voteForm2').hidden = false;
+    }
+</script>
+<script>
+    function addValue(value){
+        let values = document.getElementById('ids').value;
+        let split = values.split(',');
+        if (split)
+        for (let i=0;i<split.length;i++){
+
+        }
+    }
 </script>
 </body>
 </html>

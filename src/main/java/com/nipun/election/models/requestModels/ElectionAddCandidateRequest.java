@@ -1,0 +1,15 @@
+package com.nipun.election.models.requestModels;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class ElectionAddCandidateRequest {
+    private int electionId;
+    private int candidateId;
+}

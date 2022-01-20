@@ -20,4 +20,22 @@ public class CitizenRegistrationRequest {
     private String email;
     private String mobile;
     private String address;
+    private String fingerprintId;
+
+    @Override
+    public String toString() {
+        return "CitizenRegistrationRequest{" +
+                "formId=" + formId +
+                ", formType=" + formType +
+                ", pollingDivision=" + pollingDivision +
+                ", nic='" + nic + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", gender=" + gender +
+                ", birthday='" + birthday + '\'' +
+                ", email='" + email + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", address='" + address + '\'' +
+                ", fingerprintId='" + fingerprintId + '\'' +
+                '}';
+    }
 }

@@ -43,6 +43,9 @@
                                     <ul class="nav nav-pills ml-auto">
                                         <li class="nav-item">
                                             <button type="button" class="btn btn-primary float-right"
+                                                    data-title="Election Registration"
+                                                    data-formtype="0"
+                                                    data-id="0"
                                                     data-toggle="modal" data-target="#election-registration-modal"><i
                                                     class="fas fa-vote-yea"></i> Create an Election
                                             </button>
@@ -61,35 +64,80 @@
                                         <th>Max Seat Count</th>
                                         <th>Start Time</th>
                                         <th>End Time</th>
-                                        <th>Created By</th>
+                                        <!--                                        <th>Created By</th>-->
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Parliament Election - 2022</th>
-                                        <th>2022</th>
-                                        <th>156</th>
-                                        <th>2022-03-04 10:05:05</th>
-                                        <th>2022-03-05 10:05:05</th>
-                                        <th>John Doe</th>
-                                        <td>
-                                            <button type="button" class="btn btn-success">
-                                                <i class="fas fa-play"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-info">
-                                                <i class="fas fa-stop"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-primary"
-                                                    data-toggle="modal" data-target="#election-add-candidates-modal"><i
-                                                    class="fas fa-user-plus"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-warning"
-                                                    data-toggle="modal" data-target="#election-registration-modal"><i
-                                                    class="fas fa-edit"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-danger"><i class="fa fa-trash-alt"></i></button>
+                                    <tr th:id="'el_table_row_'+${e.getId()}"
+                                        th:each="e,iterationStatus:${elections}">
+                                        <td th:text="${iterationStatus.count}"></td>
+                                        <td th:text="${e.getName()}"></td>
+                                        <td th:text="${e.getYear()}"></td>
+                                        <td th:text="${e.getMaxSeats()}"></td>
+                                        <td th:text="${e.getStartTimeToDisplay()}"></td>
+                                        <td th:text="${e.getEndTimeToDisplay()}"></td>
+                                        <td th:switch="${e.getElectionStatus()}" style="float: left;position: relative">
+                                                <span th:case="'0'">
+                                                        <span style="float: left">
+                                                    <form th:action="@{/election-change-status}" method="post">
+                                                        <input type="number" name="id" hidden th:value="${e.getId()}">
+                                                        <input type="number" name="status" hidden value="1">
+                                                            <button type="submit" class="btn btn-success">
+                                                                <i class="fas fa-play"></i>
+                                                            </button>
+                                                    </form>
+                                                </span>
+                                                <span style="float: left">
+                                                    <button type="button" class="btn btn-primary"
+                                                            th:data-electionid="${e.getId()}"
+                                                            data-toggle="modal"
+                                                            data-target="#election-add-candidates-modal">
+                                                        <i class="fas fa-user-plus"></i>
+                                                    </button>
+                                                </span>
+                                                <span style="float: left">
+                                                    <button type="button" class="btn btn-warning"
+                                                            data-title="Election Edit"
+                                                            data-formtype="1"
+                                                            th:data-id="${e.getId()}"
+                                                            th:data-name="${e.getName()}"
+                                                            th:data-year="${e.getYear()}"
+                                                            th:data-seats="${e.getMaxSeats()}"
+                                                            th:data-starttime="${e.getStartTimeToDisplay()}"
+                                                            th:data-endtime="${e.getEndTimeToDisplay()}"
+                                                            data-toggle="modal"
+                                                            data-target="#election-registration-modal"><i
+                                                            class="fas fa-edit"></i>
+                                                    </button>
+                                                </span>
+                                                <span style="float: left">
+                                                <form th:action="@{/election-delete}" method="post">
+                                                    <input type="number" name="id" hidden th:value="${e.getId()}">
+                                                        <button type="submit" class="btn btn-danger"><i
+                                                                class="fa fa-trash-alt"></i>
+                                                        </button>
+                                                    </form>
+                                                </span>
+                                                </span>
+                                            <span th:case="'1'">
+                                                <span style="float: left">
+                                                    <form th:action="@{/election-change-status}" method="post">
+                                                        <input type="number" name="id" hidden th:value="${e.getId()}">
+                                                        <input type="number" name="status" hidden value="2">
+                                                            <button type="submit" class="btn btn-info">
+                                                                <i class="fas fa-stop"></i>
+                                                            </button>
+                                                    </form>
+                                                </span>
+                                            </span>
+                                            <span th:case="*">
+                                                <span style="float: left">
+                                                    <a th:href="@{election-results(id=${e.getId()})}" type="button" class="btn btn-outline-primary">
+                                                        <i class="fas fa-chart-bar"></i>
+                                                    </a>
+                                                </span>
+                                            </span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -101,7 +149,7 @@
                                         <th>Max Seat Count</th>
                                         <th>Start Time</th>
                                         <th>End Time</th>
-                                        <th>Created By</th>
+                                        <!--                                        <th>Created By</th>-->
                                         <th>Actions</th>
                                     </tr>
                                     </tfoot>
@@ -129,7 +177,7 @@
 <div th:replace="fragments/modal-fragments::election"></div>
 <!--End::Citizen Registration-->
 <!--BEGIN::Election Add Candidates-->
-<div th:replace="fragments/modal-fragments::election_add_candidates"></div>
+<div th:replace="fragments/modal-fragments::election_add_candidates(candidates=${candidates})"></div>
 
 <div th:replace="fragments/layout-fragments::scripts"></div>
 <!-- Page specific script -->
@@ -152,6 +200,63 @@
     //Bootstrap Duallistbox
     // $('.duallistbox').bootstrapDualListbox()
 
+</script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    let isAlertSet = /*[[${alert !=null }]]*/ false;
+
+    if (isAlertSet) {
+        var isShowAlert = /*[[${alert?.show}]]*/ 'default';
+        var title = /*[[${alert?.header}]]*/ 'default';
+        var message = /*[[${alert?.message}]]*/ 'default';
+        var type = /*[[${alert?.type}]]*/ 'default';
+        if (isShowAlert) {
+            showAlert(type, title, message);
+        }
+    }
+
+    /*]]>*/
+</script>
+
+<script>
+    $('#election-registration-modal').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget);
+        let modalTitle = button.data('title');
+        let formType = button.data('formtype');
+        let id = button.data('id');
+        let name = button.data('name');
+        let year = button.data('year');
+        let seats = button.data('seats');
+        let startTime = button.data('starttime');
+        let endTime = button.data('endtime');
+        let modal = $(this);
+        modal.find('.modal-title').text(modalTitle);
+        modal.find('#formId').val(id);
+        modal.find('#formType').val(formType);
+        modal.find('#name').val(name);
+        modal.find('#year').val(year);
+        modal.find('#maxSeats').val(seats);
+
+        let st = new Date(startTime);
+        st.setMinutes(st.getMinutes() - st.getTimezoneOffset());
+        let et = new Date(endTime);
+        et.setMinutes(et.getMinutes() - et.getTimezoneOffset());
+
+        modal.find('#startTime').val(st.toISOString().slice(0, 16));
+        modal.find('#endTime').val(et.toISOString().slice(0, 16));
+    });
+</script>
+
+<script>
+    $('#election-add-candidates-modal').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget);
+        let electionId = button.data('electionid');
+        let modal = $(this);
+        modal.find('#electionId').val(electionId);
+        document.getElementById('election').value = electionId;
+    });
 </script>
 </body>
 </html>

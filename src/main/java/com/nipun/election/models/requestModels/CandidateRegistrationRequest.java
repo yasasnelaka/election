@@ -22,4 +22,22 @@ public class CandidateRegistrationRequest {
     private String email;
     private String mobile;
     private String address;
+
+    @Override
+    public String toString() {
+        return "CandidateRegistrationRequest{" +
+                "formId=" + formId +
+                ", formType=" + formType +
+                ", pollingDivision=" + pollingDivision +
+                ", electionParty=" + electionParty +
+                ", electionNumber=" + electionNumber +
+                ", nic='" + nic + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", gender=" + gender +
+                ", birthday='" + birthday + '\'' +
+                ", email='" + email + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

@@ -1,14 +1,14 @@
 var stompClient = null;
 
-$(document).ready(function() {
+$(document).ready(function () {
     console.log("Index page is ready");
     connect();
 
-    $("#send").click(function() {
+    $("#send").click(function () {
         sendMessage();
     });
 
-    $("#send-private").click(function() {
+    $("#send-private").click(function () {
         sendPrivateMessage();
     });
 });
@@ -19,11 +19,11 @@ function connect() {
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/messages', function (message) {
-            showMessage(JSON.parse(message.body).content);
+            showMessage(JSON.parse(message.body));
         });
 
         stompClient.subscribe('/user/topic/private-messages', function (message) {
-            showMessage(JSON.parse(message.body).content);
+            showMessage(JSON.parse(message.body));
         });
     });
 }
@@ -31,8 +31,24 @@ function connect() {
 function showMessage(message) {
     // $("#messages").append("<tr><td>" +  + "</td></tr>");
     // Display an info toast with no title
-    // window.alert(message);
-    window.location.replace("/voting-form");
+    localStorage.clear();
+    if (message.canVote) {
+        localStorage.setItem('vt', '1');
+        setVisibleTrue();
+    } else {
+        localStorage.setItem('vt', '2');
+        setVisibleFalse();
+    }
+    if (message.type === 1) {
+        window.location.replace(message.message);
+    } else {
+        Swal.fire({
+            icon: 'warning',
+            title: "Notification!",
+            text: message.message,
+            // footer: '<a href="">Why do I have this issue?</a>'
+        });
+    }
 }
 
 
