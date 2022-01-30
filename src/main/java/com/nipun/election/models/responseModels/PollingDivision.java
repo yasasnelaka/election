@@ -20,8 +20,9 @@ public class PollingDivision implements Serializable {
     private String districtDivisionName;
     private int provinceDivisionId;
     private String provinceDivisionName;
+    private int seats;
 
     public PollingDivision convertEntityToResponseModel(com.nipun.election.dbTier.entities.PollingDivision division, District district, Province province){
-        return new PollingDivision(division.getId(),division.getPollingDivision(),district.getId(),district.getDistrict(),province.getId(),province.getProvince());
+        return new PollingDivision(division.getId(),division.getPollingDivision(),district.getId(),district.getDistrict(),province.getId(),province.getProvince(),division.getSeats());
     }
 }

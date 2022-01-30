@@ -26,6 +26,9 @@ public class PollingDivision {
     @Column(name = "polling_division")
     private String pollingDivision;
 
+    @Column(name = "seats")
+    private Integer seats;
+
     @Column(name = "created_at")
     private Date createdAt;
 
