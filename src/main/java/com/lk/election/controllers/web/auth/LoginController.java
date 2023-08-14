@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 @Controller
 public class LoginController {
@@ -41,27 +40,25 @@ public class LoginController {
         message.setShow(true);
         message.setType(FrontEndAlertType.WARNING);
         message.setHeader("Alert");
-        Date date = new Date();
-        //Validating
+        // Validating
         User user = userRepository.getByEmail(request.getEmail(), Status.LIVE);
         if (user == null) {
             message.setMessage("Email or password has not been matched! Please try again with correct credentials.");
             redirectAttributes.addFlashAttribute(ModelAttributes.ALERT, message);
             return new RedirectView(URLHolder.LOGIN_VIEW);
-        }else if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+        } else if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             message.setMessage("Password has not been matched! Please try again with correct credentials.");
             redirectAttributes.addFlashAttribute(ModelAttributes.ALERT, message);
             return new RedirectView(URLHolder.LOGIN_VIEW);
-        }else{
-            sessionConfigService.configAuthSession(user,servletRequest);
-            if (user.getUserTypeId()== UserTypes.DEC){
+        } else {
+            sessionConfigService.configAuthSession(user, servletRequest);
+            if (user.getUserTypeId() == UserTypes.DEC) {
                 return new RedirectView(URLHolder.ELECTIONS_LIST_VIEW);
-            }else  if (user.getUserTypeId()==UserTypes.GNO){
+            } else if (user.getUserTypeId() == UserTypes.GNO) {
                 return new RedirectView(URLHolder.CITIZEN_LIST_VIEW);
             }
-//            redirectAttributes.addFlashAttribute(ModelAttributes.ALERT,new AlertMessage("Message",new com.nipun.election.models.responseModels.User().convertEntityToResponseModel(user).toString(),FrontEndAlertType.INFO,true));
+            // If neither DEC nor GNO, redirect to login view
             return new RedirectView(URLHolder.LOGIN_VIEW);
         }
     }
-
 }

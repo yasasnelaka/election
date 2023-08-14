@@ -251,7 +251,7 @@
 }
 
 .small-box {
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
   display: block;
   margin-bottom: 20px;
@@ -386,7 +386,7 @@
 
 .info-box {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   background-color: #fff;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -409,7 +409,7 @@
 }
 
 .info-box .info-box-icon {
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
@@ -682,7 +682,7 @@
 }
 
 .timeline::before {
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   background-color: #dee2e6;
   bottom: 0;
   content: "";
@@ -706,7 +706,7 @@
 
 .timeline > div > .timeline-item {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   background-color: #fff;
   color: #495057;
   margin-left: 60px;
@@ -823,7 +823,7 @@
 }
 
 .products-list > .item {
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   background-color: #fff;
   padding: 10px 0;
 }
@@ -928,7 +928,7 @@
 }
 
 .direct-chat-text {
-  border-radius: 0.3rem;
+  border-radius: 1rem;
   background-color: #d2d6de;
   border: 1px solid #d2d6de;
   color: #444;

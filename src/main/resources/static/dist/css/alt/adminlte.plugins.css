@@ -378,7 +378,7 @@
 
 .external-event {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   cursor: move;
   font-weight: 700;
   margin-bottom: 4px;
@@ -4842,7 +4842,7 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   font-size: 0.875rem;
   background-color: #000;
   color: #fff;
@@ -4865,7 +4865,7 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
 .mapael .zoomButton {
   background-color: #f8f9fa;
   border: 1px solid #ddd;
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   color: #444;
   cursor: pointer;
   font-weight: 700;
@@ -4905,7 +4905,7 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
 .jqvmap-zoomout {
   background-color: #f8f9fa;
   border: 1px solid #ddd;
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   color: #444;
   height: 15px;
   width: 15px;
@@ -8546,7 +8546,7 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
   */
 .bootstrap-switch {
   border: 1px solid #ced4da;
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   cursor: pointer;
   direction: ltr;
   display: inline-block;
@@ -8564,7 +8564,7 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
 }
 
 .bootstrap-switch .bootstrap-switch-container {
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   display: inline-block;
   top: 0;
   -webkit-transform: translate3d(0, 0, 0);
