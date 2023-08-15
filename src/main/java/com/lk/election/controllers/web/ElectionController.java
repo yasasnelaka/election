@@ -60,7 +60,7 @@ public class ElectionController {
         } else {
             UserDetails userDetails = sessionConfigService.extractUserDetails(session);
             model.addAttribute(ModelAttributes.USER, userDetails);
-            model.addAttribute("page_details", new PageDetails("EVS | Election", "Elections"));
+            model.addAttribute("page_details", new PageDetails("SES | Election", "Elections"));
             model.addAttribute("user", userDetails);
         }
         List<Election> electionList = electionRepository.findAll(Status.LIVE);

@@ -42,7 +42,7 @@
                                 <div class="card-tools">
                                     <ul class="nav nav-pills ml-auto">
                                         <li class="nav-item">
-                                            <button type="button" class="btn btn-primary float-right"
+                                            <button type="button" class="btn btn-info float-right"
                                                     data-title="Election Registration"
                                                     data-formtype="0"
                                                     data-id="0"
@@ -78,8 +78,8 @@
                                         <td th:text="${e.getStartTimeToDisplay()}"></td>
                                         <td th:text="${e.getEndTimeToDisplay()}"></td>
                                         <td th:switch="${e.getElectionStatus()}" style="float: left;position: relative">
-                                                <span th:case="'0'">
-                                                        <span style="float: left">
+                                                <div class="btn-group" th:case="'0'">
+
                                                     <form th:action="@{/election-change-status}" method="post">
                                                         <input type="number" name="id" hidden th:value="${e.getId()}">
                                                         <input type="number" name="status" hidden value="1">
@@ -87,16 +87,12 @@
                                                                 <i class="fas fa-play"></i>
                                                             </button>
                                                     </form>
-                                                </span>
-                                                <span style="float: left">
                                                     <button type="button" class="btn btn-primary"
                                                             th:data-electionid="${e.getId()}"
                                                             data-toggle="modal"
                                                             data-target="#election-add-candidates-modal">
                                                         <i class="fas fa-user-plus"></i>
                                                     </button>
-                                                </span>
-                                                <span style="float: left">
                                                     <button type="button" class="btn btn-warning"
                                                             data-title="Election Edit"
                                                             data-formtype="1"
@@ -110,18 +106,14 @@
                                                             data-target="#election-registration-modal"><i
                                                             class="fas fa-edit"></i>
                                                     </button>
-                                                </span>
-                                                <span style="float: left">
                                                 <form th:action="@{/election-delete}" method="post">
                                                     <input type="number" name="id" hidden th:value="${e.getId()}">
                                                         <button type="submit" class="btn btn-danger"><i
                                                                 class="fa fa-trash-alt"></i>
                                                         </button>
                                                     </form>
-                                                </span>
-                                                </span>
-                                            <span th:case="'1'">
-                                                <span style="float: left">
+                                                </div>
+                                            <div class="btn-group" th:case="'1'">
                                                     <form th:action="@{/election-change-status}" method="post">
                                                         <input type="number" name="id" hidden th:value="${e.getId()}">
                                                         <input type="number" name="status" hidden value="2">
@@ -129,15 +121,12 @@
                                                                 <i class="fas fa-stop"></i>
                                                             </button>
                                                     </form>
-                                                </span>
-                                            </span>
-                                            <span th:case="*">
-                                                <span style="float: left">
+                                            </div>
+                                            <div class="btn-group" th:case="*">
                                                     <a th:href="@{election-results(id=${e.getId()})}" type="button" class="btn btn-outline-primary">
                                                         <i class="fas fa-chart-bar"></i>
                                                     </a>
-                                                </span>
-                                            </span>
+                                            </div>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -239,13 +228,14 @@
         modal.find('#year').val(year);
         modal.find('#maxSeats').val(seats);
 
-        let st = new Date(startTime);
-        st.setMinutes(st.getMinutes() - st.getTimezoneOffset());
-        let et = new Date(endTime);
-        et.setMinutes(et.getMinutes() - et.getTimezoneOffset());
-
-        modal.find('#startTime').val(st.toISOString().slice(0, 16));
-        modal.find('#endTime').val(et.toISOString().slice(0, 16));
+        if (formType!=0){
+            let st = new Date(startTime);
+            st.setMinutes(st.getMinutes() - st.getTimezoneOffset());
+            let et = new Date(endTime);
+            et.setMinutes(et.getMinutes() - et.getTimezoneOffset());
+            modal.find('#startTime').val(st.toISOString().slice(0, 16));
+            modal.find('#endTime').val(et.toISOString().slice(0, 16));
+        }
     });
 </script>
 

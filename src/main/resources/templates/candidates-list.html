@@ -42,7 +42,7 @@
                                 <div class="card-tools">
                                     <ul class="nav nav-pills ml-auto">
                                         <li class="nav-item">
-                                            <button type="button" class="btn btn-primary float-right"
+                                            <button type="button" class="btn btn-info float-right"
                                                     data-title="Candidate Registration"
                                                     data-formtype="0"
                                                     data-id="0"
@@ -88,6 +88,7 @@
                                         <td th:text="${c.getEmail()}"></td>
                                         <td th:text="${c.getMobile()}"></td>
                                         <td>
+                                            <div class="btn-group">
                                             <button type="button" class="btn btn-success"
                                                     data-title="Candidate Edit"
                                                     th:data-id="${c.getId()}"
@@ -112,6 +113,7 @@
                                                 <button type="submit" class="btn btn-danger"><i
                                                         class="fa fa-trash-alt"></i></button>
                                             </form>
+                                            </div>
                                         </td>
                                     </tr>
                                     </tbody>

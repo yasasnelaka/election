@@ -51,7 +51,7 @@ public class CandidateController {
         } else {
             UserDetails userDetails = sessionConfigService.extractUserDetails(session);
             model.addAttribute(ModelAttributes.USER, userDetails);
-            model.addAttribute("page_details", new PageDetails("EVS | Candidates", "Candidates"));
+            model.addAttribute("page_details", new PageDetails("SES | Candidates", "Candidates"));
             model.addAttribute("user", userDetails);
         }
 

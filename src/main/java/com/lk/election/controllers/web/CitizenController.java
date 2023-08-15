@@ -53,7 +53,7 @@ public class CitizenController {
         } else {
             UserDetails userDetails = sessionConfigService.extractUserDetails(session);
             model.addAttribute(ModelAttributes.USER, userDetails);
-            model.addAttribute("page_details", new PageDetails("EVS | Citizens", "Citizens"));
+            model.addAttribute("page_details", new PageDetails("SES | Citizens", "Citizens"));
             model.addAttribute("user", userDetails);
         }
 

@@ -84,30 +84,32 @@
                                         <td th:text="${c.getEmail()}"></td>
                                         <td th:text="${c.getMobile()}"></td>
                                         <td>
-                                            <button type="button" class="btn btn-success"
-                                                    data-title="Citizen Edit"
-                                                    th:data-id="${c.getId()}"
-                                                    th:data-province="${c.getPollingDivision().getProvinceDivisionId()}"
-                                                    th:data-district="${c.getPollingDivision().getDistrictDivisionId()}"
-                                                    th:data-division="${c.getPollingDivision().getPollingDivisionId()}"
-                                                    th:data-nic="${c.getNic()}"
-                                                    th:data-name="${c.getFullName()}"
-                                                    th:data-gender="${c.getGenderId()}"
-                                                    th:data-birthday="${c.getBirthday()}"
-                                                    th:data-email="${c.getEmail()}"
-                                                    th:data-mobile="${c.getMobile()}"
-                                                    th:data-address="${c.getAddress()}"
-                                                    th:data-fingerprint="${c.getFingerprintId()}"
-                                                    data-formtype="1"
-                                                    data-toggle="modal" data-target="#customer-registration-modal"><i
-                                                    class="fas fa-user-edit"></i>
-                                            </button>
-                                            <form th:action="@{/citizen-delete}" method="post">
-                                                <input type="number" name="id" hidden th:value="${c.getId()}">
-                                                <button type="submit" class="btn btn-danger"><i
-                                                        class="fa fa-trash-alt"></i>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-success"
+                                                        data-title="Citizen Edit"
+                                                        th:data-id="${c.getId()}"
+                                                        th:data-province="${c.getPollingDivision().getProvinceDivisionId()}"
+                                                        th:data-district="${c.getPollingDivision().getDistrictDivisionId()}"
+                                                        th:data-division="${c.getPollingDivision().getPollingDivisionId()}"
+                                                        th:data-nic="${c.getNic()}"
+                                                        th:data-name="${c.getFullName()}"
+                                                        th:data-gender="${c.getGenderId()}"
+                                                        th:data-birthday="${c.getBirthday()}"
+                                                        th:data-email="${c.getEmail()}"
+                                                        th:data-mobile="${c.getMobile()}"
+                                                        th:data-address="${c.getAddress()}"
+                                                        th:data-fingerprint="${c.getFingerprintId()}"
+                                                        data-formtype="1"
+                                                        data-toggle="modal" data-target="#customer-registration-modal"><i
+                                                        class="fas fa-user-edit"></i>
                                                 </button>
-                                            </form>
+                                                <form th:action="@{/citizen-delete}" method="post">
+                                                    <input type="number" name="id" hidden th:value="${c.getId()}">
+                                                    <button type="submit" class="btn btn-danger"><i
+                                                            class="fa fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                     <!--                                    <tr>-->

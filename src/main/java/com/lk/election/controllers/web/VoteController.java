@@ -49,7 +49,7 @@ public class VoteController {
 
     @GetMapping("/voting-form")
     public String index(Model model) {
-        model.addAttribute("page_details", new PageDetails("EVS | Voting Form", "Voting Form"));
+        model.addAttribute("page_details", new PageDetails("SES | Voting Form", "Voting Form"));
         List<ElectionCandidate> electionCandidateList = new ArrayList<>();
         Election election = this.electionRepository.getOneByElectionStatus(ElectionStatus.IN_PROGRESS, Status.LIVE);
         if (election != null) {
