@@ -13190,6 +13190,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
     -ms-overflow-style: -ms-autohiding-scrollbar;
     scrollbar-width: thin;
     scrollbar-color: #a9a9a9 transparent;
+
 }
 
 .user-panel {
